@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>9</integer>
+	<key>logs</key>
+	<dict>
+		<key>47D64A01-2AA5-4C2D-B813-F58307C6FE68</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>47D64A01-2AA5-4C2D-B813-F58307C6FE68.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>S</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>assigment1 project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>assigment1</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project assigment1 with scheme assigment1 and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>571525379.94800699</real>
+			<key>timeStoppedRecording</key>
+			<real>571525387.26066601</real>
+			<key>title</key>
+			<string>Building project assigment1 with scheme assigment1 and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>47D64A01-2AA5-4C2D-B813-F58307C6FE68</string>
+		</dict>
+		<key>774E36DD-6FFF-407E-A2B8-C35E48967BF6</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>774E36DD-6FFF-407E-A2B8-C35E48967BF6.xcactivitylog</string>
+			<key>highLevelStatus</key>
+			<string>S</string>
+			<key>schemeIdentifier-containerName</key>
+			<string>assigment1 project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>assigment1</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project assigment1 with scheme assigment1 and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>571508641.29668701</real>
+			<key>timeStoppedRecording</key>
+			<real>571508648.242764</real>
+			<key>title</key>
+			<string>Building project assigment1 with scheme assigment1 and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>774E36DD-6FFF-407E-A2B8-C35E48967BF6</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

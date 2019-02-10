@@ -1,0 +1,4 @@
+#Sun Feb 10 22:49:39 CET 2019
+base.0=/Users/delezealexandre/OneDrive - epfl.ch/cours/2018-2019/personal_data/personal_data/android/app/build/intermediates/transforms/dexMerger/debug/0
+renamed.0=classes.dex
+path.0=classes.dex
