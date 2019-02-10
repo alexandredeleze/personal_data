@@ -11,6 +11,7 @@ class Chart extends Component {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <Text>Content</Text>
+                    //TODO Create a fake chart
                 </View>
                 <Footer navigation={this.props.navigation}/>
             </View>

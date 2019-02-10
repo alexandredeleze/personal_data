@@ -14,6 +14,7 @@ class Settings extends Component {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <Text>Content</Text>
+                    //TODO Create a setting page
                 </View>
                 <Footer navigation={this.props.navigation}/>
             </View>
