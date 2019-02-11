@@ -7,43 +7,41 @@
  * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React, {Component} from 'react';
-import {Platform,Dimensions} from 'react-native';
-import {createStackNavigator, createAppContainer} from "react-navigation";
+import React from 'react';
+import {createAppContainer, createStackNavigator} from "react-navigation";
 
 
 import {HomeScreen} from "./screen/HomeScreen";
-import {Chart} from "./screen/Chart";
+import {Sleep} from "./screen/chart/Sleep";
 import {Settings} from "./screen/Settings";
 
 
 import {scaledSize} from "./tools/sizeFont";
-
-
-
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android:
-        'Double tap R on your keyboard to reload,\n' +
-        'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-
-const { width, height } = Dimensions.get('window');
-
+import {Tasks} from "./screen/chart/Tasks";
+import {TimeToLeave} from "./screen/chart/TimeToLeave";
+import {Synthesis} from "./screen/chart/Synthesis";
 
 
 const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
     },
-    Chart: {
-        screen: Chart,
+    Sleep: {
+        screen: Sleep,
     },
-    Settings:{
+    Tasks: {
+        screen: Tasks,
+    },
+    TimeToLeave: {
+        screen: TimeToLeave,
+    },
+    Synthesis: {
+        screen: Synthesis,
+    },
+    Settings: {
         screen: Settings,
-    }
+    },
+
 
 }, {
     initialRouteName: 'Home',
@@ -53,7 +51,7 @@ const AppNavigator = createStackNavigator({
         },
         headerTitleStyle: {
             fontWeight: 'bold',
-            fontSize:scaledSize(25),
+            fontSize: scaledSize(25),
         },
 
     },
