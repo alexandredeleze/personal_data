@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
         marginBottom:20,
         textAlign:'center',
         fontWeight:'bold',
-        fontSize: scaledSize(20),
+        fontSize: scaledSize(30),
     },
     standard_text:{
         marginTop: 10,
         marginLeft:10,
         marginRight:10,
-        fontSize: scaledSize(15),
+        fontSize: scaledSize(20),
         textAlign: 'left',
     },
     checkbox:{
@@ -57,13 +57,36 @@ const styles = StyleSheet.create({
     },
     text_button: {
         fontWeight: 'bold',
-        fontSize: scaledSize(15),
+        fontSize: scaledSize(20),
     },
     chart_image:{
         flex:1,
         height: undefined,
         width: undefined,
     },
+    account:{
+        flex:1,
+        flexDirection:'column',
+        justifyContent: 'flex-start',
+    },
+    account_element:{
+        flex:1,
+        flexDirection:'row',
+    },
+    account_text:{
+        flex:3,
+        marginTop: 10,
+        marginLeft:10,
+        marginRight:10,
+        fontSize: scaledSize(20),
+        textAlign: 'left',
+    },
+    account_button:{
+        flex:1,
+        marginTop: 10,
+        marginLeft:10,
+        marginRight:10,
+    }
 
 
 });
