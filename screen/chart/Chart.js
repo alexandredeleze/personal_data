@@ -8,9 +8,9 @@ class InsertImage extends Component {
         super(props);
         this.images = {
             'sleep': require('../../resources/Sleep.png'),
-            'tasks': require('../../resources/Sleep.png'),
-            'synthesis': require('../../resources/Sleep.png'),
-            'time_to_leave': require('../../resources/Sleep.png'),
+            'tasks': require('../../resources/Tasks.png'),
+            'synthesis': require('../../resources/Synthesis.png'),
+            'time_to_leave': require('../../resources/Time_to_leave.png'),
         }
         this.state = {
             actualImage: this.images[this.props.image],
@@ -36,6 +36,7 @@ class Chart extends Component {
             <View style={styles.container}>
 
                 <View style={styles.content}>
+                    <Text style={styles.standard_text}>You can see below the diagram corresponding to your score for '{this.props.title}' this month:</Text>
                     <InsertImage image={this.props.image}/>
                 </View>
                 <View style={styles.footer}>
