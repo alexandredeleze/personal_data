@@ -59,6 +59,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: scaledSize(15),
     },
+    chart_image:{
+        flex:1,
+        height: undefined,
+        width: undefined,
+    },
 
 
 });

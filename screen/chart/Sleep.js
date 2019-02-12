@@ -8,7 +8,7 @@ class Sleep extends Component {
 
     render() {
         return (
-            <Chart image={'null'} text={'Sleep'} navigation={this.props.navigation}/>
+            <Chart image={'sleep'} title={'Sleep'} navigation={this.props.navigation}/>
         );
     }
 }

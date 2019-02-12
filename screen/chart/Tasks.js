@@ -8,7 +8,7 @@ class Tasks extends Component {
 
     render() {
         return (
-            <Chart image={'null'} text={'Tasks'} navigation={this.props.navigation}/>
+            <Chart image={'tasks'} title={'Tasks'} navigation={this.props.navigation}/>
         );
     }
 }

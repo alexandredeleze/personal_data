@@ -8,7 +8,7 @@ class Synthesis extends Component {
 
     render() {
         return (
-            <Chart image={'null'} text={'Synthesis'} navigation={this.props.navigation}/>
+            <Chart image={'synthesis'} title={'Synthesis'} navigation={this.props.navigation}/>
         );
     }
 }

@@ -8,7 +8,7 @@ class TimeToLeave extends Component {
 
     render() {
         return (
-            <Chart image={'null'} text={'Time to leave'} navigation={this.props.navigation}/>
+            <Chart image={'time_to_leave'} title={'Time to leave'} navigation={this.props.navigation}/>
         );
     }
 }
