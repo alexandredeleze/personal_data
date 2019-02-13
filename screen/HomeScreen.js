@@ -1,4 +1,4 @@
-import {Text, View, Button, Alert, TouchableHighlight} from "react-native";
+import {Alert, Button, Text, TouchableHighlight, View} from "react-native";
 
 import React, {Component} from 'react';
 import {styles} from '../styles/styles'
@@ -23,7 +23,7 @@ class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Text style={styles.title}>Welcome back Dolores!</Text>
+                    <Text style={styles.title}>Welcome back {this.props.navigation.getParam('name', 'Serge')}!</Text>
                     <Text style={styles.standard_text}>Checklist of today:</Text>
                     <CheckBox
                         style={styles.checkbox}

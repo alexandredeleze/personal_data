@@ -25,6 +25,7 @@ import {Synthesis} from "./screen/chart/Synthesis";
 const AppNavigator = createStackNavigator({
     Home: {
         screen: HomeScreen,
+        params: {name: 'Dolores'},
     },
     Sleep: {
         screen: Sleep,
