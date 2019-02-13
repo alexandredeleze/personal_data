@@ -41,10 +41,14 @@ class HomeScreen extends Component {
                         onClick={() => this.setState({breakfast: !this.state.breakfast})}
                         rightText={'Breakfast'}/>
                     <TouchableHighlight style={styles.submit}>
-                        <Button style={styles.submit} title={'Submit'} onPress={() => Alert.alert('Saved')}/>
+                        <Button title={'Submit'} onPress={() => Alert.alert('Saved')}/>
                     </TouchableHighlight>
                     <Text style={styles.standard_text}>Sleeping time: 8h</Text>
                     <Text style={styles.standard_text}>Time for morning routine: 30 min</Text>
+                    <TouchableHighlight style={styles.submit}>
+                        <Button title={'Advices'}
+                                onPress={() => Alert.alert('Advices for you', 'In average go 30 minutes before to bed')}/>
+                    </TouchableHighlight>
 
                 </View>
 

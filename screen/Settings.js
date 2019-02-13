@@ -1,4 +1,4 @@
-import {Text, View, Button, Alert} from "react-native";
+import {Button, Text, View} from "react-native";
 import React, {Component} from 'react';
 import {styles} from '../styles/styles'
 import {Footer} from "../component/Footer";
@@ -129,6 +129,7 @@ class Account extends Component {
 
     }
 }
+
 
 class Settings extends Component {
     static navigationOptions = {

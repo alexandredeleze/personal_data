@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 9,
         justifyContent: 'flex-start',
+        alignItems: 'stretch',
     },
     title:{
         marginTop: 10,
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
         flexBasis:scaledSize(20),
     },
     submit:{
+        alignItems: 'flex-start',
         height: 40,
         width:160,
         borderRadius:10,
@@ -66,12 +68,12 @@ const styles = StyleSheet.create({
     },
     account:{
         flex:1,
-        flexDirection:'column',
         justifyContent: 'flex-start',
     },
     account_element:{
-        flex:1,
         flexDirection:'row',
+        justifyContent: 'flex-start',
+        textAlign: 'center',
     },
     account_text:{
         flex:3,
