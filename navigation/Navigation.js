@@ -2,9 +2,10 @@ import {createStackNavigator, createAppContainer, createBottomTabNavigator} from
 import {StyleSheet, Image} from 'react-native'
 import React from 'react'
 
-import Plan from "../Components/Plan";
-import Daily from "../Components/Daily";
-import Analysis from "../Components/Analysis";
+
+import Daily from "../components/Daily";
+import Analysis from "../components/Analysis";
+import Plan from "../components/Plan";
 
 const PlanStackNavigator = createStackNavigator({
     Plan: {

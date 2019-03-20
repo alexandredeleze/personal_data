@@ -1,5 +1,5 @@
 import React from 'react';
-import TabNavigator from "./Navigation/Navigation";
+import TabNavigator from "./navigation/Navigation";
 
 export default class App extends React.Component {
   render() {
