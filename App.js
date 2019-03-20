@@ -4,60 +4,48 @@
  *
  * @format
  * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
  */
 
-import React from 'react';
-import {createAppContainer, createStackNavigator} from "react-navigation";
+import React, {Component} from 'react';
+import {Platform, StyleSheet, Text, View, ImageBackground} from 'react-native';
 
-
-import {HomeScreen} from "./screen/HomeScreen";
-import {Sleep} from "./screen/chart/Sleep";
-import {Settings} from "./screen/Settings";
-
-
-import {scaledSize} from "./tools/sizeFont";
-import {Tasks} from "./screen/chart/Tasks";
-import {TimeToLeave} from "./screen/chart/TimeToLeave";
-import {Synthesis} from "./screen/chart/Synthesis";
-
-
-const AppNavigator = createStackNavigator({
-    Home: {
-        screen: HomeScreen,
-        params: {name: 'Dolores'},
-    },
-    Sleep: {
-        screen: Sleep,
-    },
-    Tasks: {
-        screen: Tasks,
-    },
-    TimeToLeave: {
-        screen: TimeToLeave,
-    },
-    Synthesis: {
-        screen: Synthesis,
-    },
-    Settings: {
-        screen: Settings,
-    },
-
-
-}, {
-    initialRouteName: 'Home',
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: '#8D8C8C',
-        },
-        headerTitleStyle: {
-            fontWeight: 'bold',
-            fontSize: scaledSize(25),
-        },
-
-    },
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+      'Double tap R on your keyboard to reload,\n' +
+      'Shake or press menu button for dev menu',
 });
 
-export default createAppContainer(AppNavigator);
+type Props = {};
+export default class App extends Component<Props> {
+  render() {
+    return (
+        <ImageBackground source={require("./resources/background.png")} style={{width: '100%', height: '100%'}}>
+          <View style={styles.container}>
+            <Text style={styles.welcome}>Welcome to React Native!</Text>
+            <Text style={styles.instructions}>To get started, edit App.js</Text>
+            <Text style={styles.instructions}>{instructions}</Text>
+          </View>
+        </ImageBackground>
+    );
+  }
+}
 
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    //backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
