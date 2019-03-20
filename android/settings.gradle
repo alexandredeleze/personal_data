@@ -1,0 +1,3 @@
+rootProject.name = 'personal_data'
+
+include ':app'
