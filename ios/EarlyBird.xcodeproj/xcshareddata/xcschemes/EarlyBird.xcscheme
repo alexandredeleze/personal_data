@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "personal_data.app"
-               BlueprintName = "personal_data"
-               ReferencedContainer = "container:personal_data.xcodeproj">
+               BuildableName = "EarlyBird.app"
+               BlueprintName = "EarlyBird"
+               ReferencedContainer = "container:EarlyBird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "personal_dataTests.xctest"
-               BlueprintName = "personal_dataTests"
-               ReferencedContainer = "container:personal_data.xcodeproj">
+               BuildableName = "EarlyBirdTests.xctest"
+               BlueprintName = "EarlyBirdTests"
+               ReferencedContainer = "container:EarlyBird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "personal_dataTests.xctest"
-               BlueprintName = "personal_dataTests"
-               ReferencedContainer = "container:personal_data.xcodeproj">
+               BuildableName = "EarlyBirdTests.xctest"
+               BlueprintName = "EarlyBirdTests"
+               ReferencedContainer = "container:EarlyBird.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "personal_data.app"
-            BlueprintName = "personal_data"
-            ReferencedContainer = "container:personal_data.xcodeproj">
+            BuildableName = "EarlyBird.app"
+            BlueprintName = "EarlyBird"
+            ReferencedContainer = "container:EarlyBird.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "personal_data.app"
-            BlueprintName = "personal_data"
-            ReferencedContainer = "container:personal_data.xcodeproj">
+            BuildableName = "EarlyBird.app"
+            BlueprintName = "EarlyBird"
+            ReferencedContainer = "container:EarlyBird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "personal_data.app"
-            BlueprintName = "personal_data"
-            ReferencedContainer = "container:personal_data.xcodeproj">
+            BuildableName = "EarlyBird.app"
+            BlueprintName = "EarlyBird"
+            ReferencedContainer = "container:EarlyBird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,4 +1,4 @@
-package com.personal_data;
+package com.earlybird;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "personal_data";
+        return "EarlyBird";
     }
 }

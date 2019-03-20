@@ -1,4 +1,4 @@
-package com.personal_data;
+package com.earlybird;
 
 import android.app.Application;
 
