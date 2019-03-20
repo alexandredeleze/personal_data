@@ -6,7 +6,7 @@ export default class App extends React.Component {
     return (
         <ImageBackground source={require("./resources/background.png")} style={{width: '100%', height: '100%'}}>
           <View style={styles.container}>
-            <Text>Open up App.js to start working on your app h!</Text>
+            <Text>Hello World!</Text>
           </View>
         </ImageBackground>
     );
