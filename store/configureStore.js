@@ -8,4 +8,6 @@ const rootPersistConfig = {
     storage: storage
 }
 
-export default createStore(persistCombineReducers(rootPersistConfig,{highPriorityReducer, lowPriorityReducer}))
+// Change if we want persistent data
+//export default createStore(persistCombineReducers(rootPersistConfig,{highPriorityReducer, lowPriorityReducer}))
+export default createStore(combineReducers({highPriorityReducer,lowPriorityReducer}))

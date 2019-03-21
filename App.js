@@ -9,9 +9,10 @@ export default class App extends React.Component {
         let persistor = persistStore(Store)
         return (
             <Provider store={Store}>
-                <PersistGate persistor={persistor}>
+                {/*Uncomment if we want persistent data*/}
+                {/*<PersistGate persistor={persistor}>*/}
                     <TabNavigator/>
-                </PersistGate>
+                {/*</PersistGate>*/}
             </Provider>
         );
     }
