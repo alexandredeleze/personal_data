@@ -25,6 +25,7 @@ class Analysis extends React.Component {
             <Page>
                 <Text>Hello from Analysis!</Text>
             </Page>
+
         );
     }
 }

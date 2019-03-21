@@ -4,7 +4,7 @@ function lowPriorityReducer(state = initialState, action) {
     let nextState
     switch (action.type) {
         case 'ADD_LOW':
-            const lowPriorityIndex = state.lowPriority.findIndex(item => item.id === action.value.id)
+            const lowPriorityIndex = state.lowPriority.findIndex(item => item === action.value)
             if (lowPriorityIndex === -1) {
                 nextState = {
                     ...state,
@@ -13,7 +13,7 @@ function lowPriorityReducer(state = initialState, action) {
             }
             return nextState || state
         case 'REMOVE_LOW':{
-            const lowPriorityIndex = state.lowPriority.findIndex(item => item.id === action.value.id)
+            const lowPriorityIndex = state.lowPriority.findIndex(item => item === action.value)
             if (lowPriorityIndex !== -1) {
                 nextState = {
                     ...state,

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import Page from "./Page";
 
 class Plan extends React.Component {
-    _addHighPriority() {
-        const action = { type: "ADD_HIGH", value: "" }
+    _addHighPriority(arg) {
+        const action = { type: "ADD_HIGH", value: arg }
         this.props.dispatch(action)
     }
     _addLowPriority() {
@@ -13,7 +13,7 @@ class Plan extends React.Component {
         this.props.dispatch(action)
     }
     _removeHighPriority() {
-        const action = { type: "REMOVE_HIGH", value: "" }
+        const action = { type: "REMOVE_HIGH", value: "Breakfast" }
         this.props.dispatch(action)
     }
     _removeLowPriority() {
@@ -26,6 +26,9 @@ class Plan extends React.Component {
                 <Text>Hello from Plan!</Text>
             </Page>
         );
+    }
+    componentDidMount() {
+        this._addHighPriority("Breakfast")
     }
 }
 

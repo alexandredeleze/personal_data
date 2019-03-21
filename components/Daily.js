@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 
 class Daily extends React.Component {
-    _addHighPriority() {
-        const action = { type: "ADD_HIGH", value: "" }
+    _addHighPriority(arg) {
+        const action = { type: "ADD_HIGH", value: arg }
         this.props.dispatch(action)
     }
     _addLowPriority() {
@@ -23,14 +23,43 @@ class Daily extends React.Component {
     render() {
         return (
             <Page>
-                <Text>Hello from Daily!</Text>
+                <View style={styles.highPriority}>
+                    <Text style={styles.title}>High Priority</Text>
+                    <FlatList
+                        style={styles.list}
+                    data={this.props.highPriority}
+                    keyExtractor={(item) => item.toString()}
+                    renderItem={({item}) => (
+                        <Text>{item}</Text>
+                    )}
+                    />
+                </View>
+                <View style={styles.lowPriority}>
+                    <Text style={styles.title}>Low Priority</Text>
+                </View>
+
             </Page>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    highPriority: {
+        flex:1,
+        alignItems: 'stretch',
+    },
+    lowPriority: {
+        flex:1,
+    },
+    title:{
+        fontWeight: 'bold',
+        textAlign:'center',
+        fontSize: 26,
+    },
+    list:{
+        flex:1,
 
+    }
 });
 
 const mapStateToProps = state => {
