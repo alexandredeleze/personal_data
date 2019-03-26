@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 class Daily extends React.Component {
@@ -39,17 +39,13 @@ class Daily extends React.Component {
                     onPress={() => {
                         this._changeValueForItem(item,false,isHighPriority)
                     }} style={styles.quickActionButtonStyleRed}>
-                    <Text>
-                        Not done
-                    </Text>
+                    <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         this._changeValueForItem(item,true,isHighPriority)
                     }} style={styles.quickActionButtonStyleGreen}>
-                    <Text>
-                        Done
-                    </Text>
+                    <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>
             </View>
         )
@@ -91,7 +87,7 @@ class Daily extends React.Component {
                         <ScrollView>
                             <SwipeableFlatList data={this.props.highPriority}
                                                bounceFirstRowOnMount={true}
-                                               maxSwipeDistance={160}
+                                               maxSwipeDistance={110}
                                                renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
                                                renderItem={({index,item})=>this._renderListItem(item,true)}
                                                keyExtractor={(item,index)=> index.toString()}/>
@@ -105,7 +101,7 @@ class Daily extends React.Component {
                         <ScrollView>
                             <SwipeableFlatList data={this.props.lowPriority}
                                                bounceFirstRowOnMount={true}
-                                               maxSwipeDistance={160}
+                                               maxSwipeDistance={110}
                                                renderQuickActions={({index,item})=>this._renderQuickActionButton(item,false)}
                                                renderItem={({index,item})=>this._renderListItem(item,false)}
                                                keyExtractor={(item,index)=> index.toString()}/>
@@ -135,7 +131,6 @@ const styles = StyleSheet.create({
     },
     content:{
         flex:5,
-        //alignItems:'stretch'
     },
     title_container:{
         flex:1,
@@ -147,7 +142,6 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
-        //backgroundColor: 'white',
         elevation: 5,
         margin: 10,
         shadowRadius: 3,
@@ -167,13 +161,13 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'red',
-        padding: 20,
+        padding: 11,
     },
     quickActionButtonStyleGreen: {
         alignSelf: 'flex-end',
         alignItems: 'center',
         backgroundColor: 'green',
-        padding: 20,
+        padding: 11,
     },
 
 
