@@ -83,32 +83,36 @@ class Daily extends React.Component {
     render() {
         return (
             <Page>
-                <ScrollView style={styles.highPriority}>
+                <View style={styles.highPriority}>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>High Priority</Text>
                     </View>
                     <View style={styles.content}>
-                        <SwipeableFlatList data={this.props.highPriority}
-                                           bounceFirstRowOnMount={true}
-                                           maxSwipeDistance={160}
-                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
-                                           renderItem={({index,item})=>this._renderListItem(item,true)}
-                        keyExtractor={(item,index)=> index.toString()}/>
+                        <ScrollView>
+                            <SwipeableFlatList data={this.props.highPriority}
+                                               bounceFirstRowOnMount={true}
+                                               maxSwipeDistance={160}
+                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
+                                               renderItem={({index,item})=>this._renderListItem(item,true)}
+                                               keyExtractor={(item,index)=> index.toString()}/>
+                        </ScrollView>
 
                     </View>
-                </ScrollView>
-                <ScrollView style={styles.lowPriority}>
+                </View>
+                <View style={styles.lowPriority}>
                     <Text style={styles.title}>Low Priority</Text>
                     <View style={styles.content}>
-                        <SwipeableFlatList data={this.props.lowPriority}
-                                           bounceFirstRowOnMount={true}
-                                           maxSwipeDistance={160}
-                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item,false)}
-                                           renderItem={({index,item})=>this._renderListItem(item,false)}
-                                           keyExtractor={(item,index)=> index.toString()}/>
+                        <ScrollView>
+                            <SwipeableFlatList data={this.props.lowPriority}
+                                               bounceFirstRowOnMount={true}
+                                               maxSwipeDistance={160}
+                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item,false)}
+                                               renderItem={({index,item})=>this._renderListItem(item,false)}
+                                               keyExtractor={(item,index)=> index.toString()}/>
+                        </ScrollView>
 
                     </View>
-                </ScrollView>
+                </View>
             </Page>
         );
     }
@@ -131,14 +135,14 @@ const styles = StyleSheet.create({
     },
     content:{
         flex:5,
-        alignItems:'stretch'
+        //alignItems:'stretch'
     },
     title_container:{
         flex:1,
         alignItems:'stretch',
     },
     flatList:{
-       backgroundColor:'transparent'
+        backgroundColor:'transparent'
     },
     cardContainer: {
         flex: 1,
