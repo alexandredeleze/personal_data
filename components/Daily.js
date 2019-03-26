@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList,TouchableHighlight, Animated, TouchableOpacity, ListView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
-import {SwipeableFlatList} from 'react-native-swipeable-flat-list';
 class Daily extends React.Component {
 
     constructor(props){
@@ -10,7 +9,7 @@ class Daily extends React.Component {
         this.state={
             leftActionActivated:false,
             toggle:false,
-            activated: this.props.highPriority.map((value, index, array) => false),
+            activated: this.props.highPriority.map((value, index, array) => undefined),
         }
     }
 
@@ -32,6 +31,54 @@ class Daily extends React.Component {
         this.props.dispatch(action)
     }
 
+
+    _renderQuickActionButton = (item) => {
+        return (
+            <View style={styles.quickActionContainer}>
+                <TouchableOpacity
+                    onPress={() => {
+                        this._changeValueForItem(item,false)
+                    }} style={styles.quickActionButtonStyleRed}>
+                    <Text>
+                        Not done
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this._changeValueForItem(item,true)
+                    }} style={styles.quickActionButtonStyleGreen}>
+                    <Text>
+                        Done
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        )
+    };
+
+    _renderListItem = (item) => {
+        const highPriorityIndex = this.props.highPriority.findIndex(item2 => item2=== item)
+        const bool = this.state.activated[highPriorityIndex]
+        return (
+            <View style={[styles.cardContainer,{backgroundColor:bool===undefined?'white':bool?'green':'red'}]}>
+                <Text>{item.value}</Text>
+            </View>
+        )
+    };
+
+    _changeValueForItem(item,newValue){
+        const highPriorityIndex = this.props.highPriority.findIndex(item2 => item2=== item)
+        this.setState({activated: this.state.activated.map(((value, index) => {
+                if(index === highPriorityIndex){
+
+                    return newValue
+                }
+                else{
+                    return value
+                }
+            })) })
+
+    }
+
     render() {
         return (
             <Page>
@@ -40,22 +87,12 @@ class Daily extends React.Component {
                         <Text style={styles.title}>High Priority</Text>
                     </View>
                     <View style={styles.content}>
-                        <SwipeableFlatList
-                            data={this.props.highPriority}
-                            renderItem={({ item }) => (
-                                <Text style={{ height: 48, textAlign: 'center', backgroundColor:'transparent' }}>{item.value}</Text>
-                            )}
-                            renderLeft={({ item }) => (
-                                <Text style={{ width: 150, backgroundColor:'green' }}>Left</Text>
-                            )}
-                            renderRight={({ item }) => (
-                                <Text style={{ width: 150, backgroundColor: 'red' }}>Right</Text>
-                            )}
-                            keyExtractor={(item)=>item.toString()}
-                            style={styles.flatList}
-                            itemBackgroundColor={'gray'}
-
-                        />
+                        <SwipeableFlatList data={this.props.highPriority}
+                                           bounceFirstRowOnMount={true}
+                                           maxSwipeDistance={160}
+                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
+                                           renderItem={({index,item})=>this._renderListItem(item)}
+                        keyExtractor={(item,index)=> index.toString()}/>
 
                     </View>
                 </View>
@@ -92,7 +129,38 @@ const styles = StyleSheet.create({
     },
     flatList:{
        backgroundColor:'transparent'
-    }
+    },
+    cardContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        //backgroundColor: 'white',
+        elevation: 5,
+        margin: 10,
+        shadowRadius: 3,
+        shadowOffset: {
+            width: 3,
+            height: 3
+        },
+        padding: 20
+    },
+    quickActionContainer: {
+        flex: 1,
+        margin:10,
+        justifyContent: 'flex-end',
+        flexDirection: 'row'
+    },
+    quickActionButtonStyleRed: {
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        backgroundColor: 'red',
+        padding: 20,
+    },
+    quickActionButtonStyleGreen: {
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        backgroundColor: 'green',
+        padding: 20,
+    },
 
 
 });
