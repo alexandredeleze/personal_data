@@ -8,7 +8,7 @@ function lowPriorityReducer(state = initialState, action) {
             if (lowPriorityIndex === -1) {
                 nextState = {
                     ...state,
-                    lowPriority: [...state.lowPriority, {key:state.lowPriority.length,value:action.value}]
+                    lowPriority: [...state.lowPriority, {value:action.value}]
                 }
             }
             return nextState || state

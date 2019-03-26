@@ -9,7 +9,7 @@ class Daily extends React.Component {
         this.state={
             leftActionActivated:false,
             toggle:false,
-            activated: this.props.highPriority.map((value, index, array) => undefined),
+            activated: this.props.highPriority.map((value, index, array) => undefined).concat(this.props.lowPriority.map(value=>undefined)),
         }
     }
 
@@ -32,12 +32,12 @@ class Daily extends React.Component {
     }
 
 
-    _renderQuickActionButton = (item) => {
+    _renderQuickActionButton = (item,isHighPriority) => {
         return (
             <View style={styles.quickActionContainer}>
                 <TouchableOpacity
                     onPress={() => {
-                        this._changeValueForItem(item,false)
+                        this._changeValueForItem(item,false,isHighPriority)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Text>
                         Not done
@@ -45,7 +45,7 @@ class Daily extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        this._changeValueForItem(item,true)
+                        this._changeValueForItem(item,true,isHighPriority)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Text>
                         Done
@@ -55,9 +55,10 @@ class Daily extends React.Component {
         )
     };
 
-    _renderListItem = (item) => {
-        const highPriorityIndex = this.props.highPriority.findIndex(item2 => item2=== item)
-        const bool = this.state.activated[highPriorityIndex]
+    _renderListItem = (item,isHighPriority) => {
+        const index = isHighPriority?this.props.highPriority.findIndex(item2 => item2=== item):
+            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.highPriority.length
+        const bool = this.state.activated[index]
         return (
             <View style={[styles.cardContainer,{backgroundColor:bool===undefined?'white':bool?'green':'red'}]}>
                 <Text>{item.value}</Text>
@@ -65,11 +66,11 @@ class Daily extends React.Component {
         )
     };
 
-    _changeValueForItem(item,newValue){
-        const highPriorityIndex = this.props.highPriority.findIndex(item2 => item2=== item)
-        this.setState({activated: this.state.activated.map(((value, index) => {
-                if(index === highPriorityIndex){
-
+    _changeValueForItem(item,newValue,isHighPriority){
+        const index = isHighPriority?this.props.highPriority.findIndex(item2 => item2=== item):
+            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.highPriority.length
+        this.setState({activated: this.state.activated.map(((value, index2) => {
+                if(index2 === index){
                     return newValue
                 }
                 else{
@@ -90,14 +91,23 @@ class Daily extends React.Component {
                         <SwipeableFlatList data={this.props.highPriority}
                                            bounceFirstRowOnMount={true}
                                            maxSwipeDistance={160}
-                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
-                                           renderItem={({index,item})=>this._renderListItem(item)}
+                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
+                                           renderItem={({index,item})=>this._renderListItem(item,true)}
                         keyExtractor={(item,index)=> index.toString()}/>
 
                     </View>
                 </View>
                 <View style={styles.lowPriority}>
                     <Text style={styles.title}>Low Priority</Text>
+                    <View style={styles.content}>
+                        <SwipeableFlatList data={this.props.lowPriority}
+                                           bounceFirstRowOnMount={true}
+                                           maxSwipeDistance={160}
+                                           renderQuickActions={({index,item})=>this._renderQuickActionButton(item,false)}
+                                           renderItem={({index,item})=>this._renderListItem(item,false)}
+                                           keyExtractor={(item,index)=> index.toString()}/>
+
+                    </View>
                 </View>
             </Page>
         );

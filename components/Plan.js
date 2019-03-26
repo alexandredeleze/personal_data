@@ -8,8 +8,8 @@ class Plan extends React.Component {
         const action = { type: "ADD_HIGH", value: arg }
         this.props.dispatch(action)
     }
-    _addLowPriority() {
-        const action = { type: "ADD_LOW", value: "" }
+    _addLowPriority(arg) {
+        const action = { type: "ADD_LOW", value: arg}
         this.props.dispatch(action)
     }
     _removeHighPriority() {
@@ -30,6 +30,7 @@ class Plan extends React.Component {
     componentDidMount() {
         this._addHighPriority("Breakfast")
         this._addHighPriority("Clean Teeth")
+        this._addLowPriority("Yoga")
     }
 }
 
