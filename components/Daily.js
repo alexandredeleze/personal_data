@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 class Daily extends React.Component {
@@ -83,7 +83,7 @@ class Daily extends React.Component {
     render() {
         return (
             <Page>
-                <View style={styles.highPriority}>
+                <ScrollView style={styles.highPriority}>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>High Priority</Text>
                     </View>
@@ -96,8 +96,8 @@ class Daily extends React.Component {
                         keyExtractor={(item,index)=> index.toString()}/>
 
                     </View>
-                </View>
-                <View style={styles.lowPriority}>
+                </ScrollView>
+                <ScrollView style={styles.lowPriority}>
                     <Text style={styles.title}>Low Priority</Text>
                     <View style={styles.content}>
                         <SwipeableFlatList data={this.props.lowPriority}
@@ -108,7 +108,7 @@ class Daily extends React.Component {
                                            keyExtractor={(item,index)=> index.toString()}/>
 
                     </View>
-                </View>
+                </ScrollView>
             </Page>
         );
     }

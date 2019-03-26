@@ -30,6 +30,9 @@ class Plan extends React.Component {
     componentDidMount() {
         this._addHighPriority("Breakfast")
         this._addHighPriority("Clean Teeth")
+        this._addHighPriority("Shower")
+        this._addHighPriority("Make the bed")
+        this._addHighPriority("Close the door")
         this._addLowPriority("Yoga")
     }
 }
