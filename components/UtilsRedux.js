@@ -1,12 +1,12 @@
 import React from 'react';
 import Store from '../store/configureStore';
 const UtilsRedux = {
-    _addToDataBase:function (element,date_element) {
-        const action = {type:"ADD_ELEMENT", value:element, date:date_element}
+    _addToDataBase:function (element,date_element, priority) {
+        const action = {type:"ADD_ELEMENT", title:element, date:date_element, priority: priority}
         Store.dispatch(action)
     },
-    _updateDataBase:function (element, date_element, activated_element) {
-        const action = {type:"UPDATE_ELEMENT", value:element, date: date_element, activated:activated_element}
+    _updateDataBase:function (element, date_element, completed, priority) {
+        const action = {type:"UPDATE_ELEMENT", title:element, date: date_element, completed:completed, priority: priority}
         Store.dispatch(action)
     }
 }

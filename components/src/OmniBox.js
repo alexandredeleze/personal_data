@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {View, Button, Dimensions, TextInput} from 'react-native';
 import TodoModel from './TodoModel';
 import Utils from './Utils';
+import UtilsRedux from '../UtilsRedux';
+import {connect} from "react-redux";
 
 class OmniBox extends Component {
     constructor(props) {
@@ -32,6 +34,7 @@ class OmniBox extends Component {
         //console.log("Datalist", dataList);
         var dataItem = Utils.findTodo(newDataItem, dataList);
         if(!dataItem) {
+            UtilsRedux._addToDataBase(newDataItem.title, new Date().getDate(), newDataItem.priority)
             dataList.unshift(newDataItem);
 
             this.setState({
@@ -66,5 +69,12 @@ class OmniBox extends Component {
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        dataBase: state.dataBaseReducer.dataBase
+    }
+}
 
-module.exports = OmniBox;
+export default connect(mapStateToProps)(OmniBox)
+//module.exports = OmniBox;
+

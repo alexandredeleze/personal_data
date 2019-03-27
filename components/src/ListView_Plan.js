@@ -7,14 +7,14 @@ import ListViewItem from './ListViewItem';
 import Utils from './Utils';
 import {connect} from "react-redux";
 
-let dataList = [
+let dataList = [];/*
     new TodoModel('Hello Koding'),
     new TodoModel('Make a Todo App with React Native'),
     new TodoModel('Check to complete a todo'),
     new TodoModel('Long press, drag and drop a todo to a lot of text to see how it looks so we could keep adding text until it is uselesssort'),
     new TodoModel('Save data with Realm'),
     new TodoModel('Sync data with Firebase')
-];
+];*/
 
 var dataListOrder = getOrder(dataList);
 
@@ -70,7 +70,7 @@ class ListView_Plan extends Component {
         return (
             <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
                 <OmniBox
-                    data={dataList}
+                    data={this.props.dataBase}
                     updateDataList={this.updateDataList}/>
                 {listView}
             </View>
@@ -78,7 +78,7 @@ class ListView_Plan extends Component {
     }
 };
 
-module.exports = ListView_Plan;
+//module.exports = ListView_Plan;
 
 const mapStateToProps = state => {
     return {

@@ -4,17 +4,17 @@ function dataBaseReducer(state = initialState, action) {
     let nextState
     switch (action.type) {
         case 'ADD_ELEMENT':
-            const indexOfElement = state.dataBase.findIndex(item => item.value=== action.value && item.date === action.date)
+            const indexOfElement = state.dataBase.findIndex(item => item.title=== action.title && item.date === action.date)
 
             if (indexOfElement === -1) {
                 nextState = {
                     ...state,
-                    dataBase: [...state.dataBase, {value: action.value, date:action.date, activated: undefined}]
+                    dataBase: [...state.dataBase, {title: action.title, date:action.date, completed: undefined, priority:action.priority}]
                 }
             }
             return nextState || state
         case 'REMOVE_ELEMENT':{
-            const indexOfElement = state.dataBase.findIndex(item => item.value=== action.value && item.date === action.date)
+            const indexOfElement = state.dataBase.findIndex(item => item.title=== action.title && item.date === action.date)
             if (indexOfElement !== -1) {
                 nextState = {
                     ...state,
@@ -25,9 +25,9 @@ function dataBaseReducer(state = initialState, action) {
         }
 
         case 'UPDATE_ELEMENT':{
-            const indexOfElement = state.dataBase.findIndex(item => item.value=== action.value && item.date === action.date)
+            const indexOfElement = state.dataBase.findIndex(item => item.title=== action.title && item.date === action.date)
             if (indexOfElement !== -1) {
-                const updatedData = {value: action.value, date:action.date, activated:action.activated}
+                const updatedData = {title: action.title, date:action.date, completed:action.completed, priority: action.priority}
                 nextState = {
                     ...state,
                     dataBase: [...state.dataBase.slice(0,indexOfElement),updatedData,...state.dataBase.slice(indexOfElement+1)]
