@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        lowPriority: state.lowPriorityReducer.lowPriority,
-        highPriority: state.highPriorityReducer.highPriority
+        tasks: state.tasksReducer.tasks
     }
 }
 

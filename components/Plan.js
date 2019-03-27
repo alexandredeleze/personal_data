@@ -4,22 +4,12 @@ import { connect } from 'react-redux'
 import Page from "./Page";
 
 class Plan extends React.Component {
-    _addHighPriority(arg) {
-        const action = { type: "ADD_HIGH", value: arg }
+    _addElement(element){
+        var current_date = new Date().getDate()
+        const action = { type: "ADD_ELEMENT", value: element, date: current_date}
         this.props.dispatch(action)
     }
-    _addLowPriority(arg) {
-        const action = { type: "ADD_LOW", value: arg}
-        this.props.dispatch(action)
-    }
-    _removeHighPriority() {
-        const action = { type: "REMOVE_HIGH", value: "Breakfast" }
-        this.props.dispatch(action)
-    }
-    _removeLowPriority() {
-        const action = { type: "REMOVE_LOW", value: "" }
-        this.props.dispatch(action)
-    }
+
     render() {
         return (
             <Page>
@@ -28,12 +18,11 @@ class Plan extends React.Component {
         );
     }
     componentDidMount() {
-        this._addHighPriority("Breakfast")
-        this._addHighPriority("Clean Teeth")
-        this._addHighPriority("Shower")
-        this._addHighPriority("Make the bed")
-        this._addHighPriority("Close the door")
-        this._addLowPriority("Yoga")
+        this._addElement("Breakfast")
+        this._addElement("Clean Teeth")
+        this._addElement("Shower")
+        this._addElement("Make the bed")
+        this._addElement("Close the door")
     }
 }
 
@@ -43,8 +32,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        lowPriority: state.lowPriorityReducer.lowPriority,
-        highPriority: state.highPriorityReducer.highPriority
+        dataBase: state.dataBaseReducer.dataBase
     }
 }
 

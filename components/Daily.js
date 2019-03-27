@@ -5,29 +5,26 @@ import {connect} from "react-redux";
 class Daily extends React.Component {
 
     constructor(props){
+        var date = new Date().getDate()
         super(props)
         this.state={
             leftActionActivated:false,
             toggle:false,
-            activated: this.props.highPriority.map((value, index, array) => undefined).concat(this.props.lowPriority.map(value=>undefined)),
+        }
+        if(this.props.dataBase.filter(item => item.date === date).length === 0){
+            this.props.dataBase.filter(item => item.date = date-1).forEach(value => this._addToDataBase(value.value,date))
         }
     }
 
 
-    _addHighPriority(arg) {
-        const action = { type: "ADD_HIGH", value: arg }
+
+    _addToDataBase(element,date_element){
+        const action = {type:"ADD_ELEMENT", value:element, date:date_element}
         this.props.dispatch(action)
     }
-    _addLowPriority() {
-        const action = { type: "ADD_LOW", value: "" }
-        this.props.dispatch(action)
-    }
-    _removeHighPriority(arg) {
-        const action = { type: "REMOVE_HIGH", value: arg }
-        this.props.dispatch(action)
-    }
-    _removeLowPriority() {
-        const action = { type: "REMOVE_LOW", value: "" }
+
+    _updateDataBase(element, date_element, activated_element){
+        const action = {type:"UPDATE_ELEMENT", value:element, date: date_element, activated:activated_element}
         this.props.dispatch(action)
     }
 
@@ -37,13 +34,15 @@ class Daily extends React.Component {
             <View style={styles.quickActionContainer}>
                 <TouchableOpacity
                     onPress={() => {
-                        this._changeValueForItem(item,false,isHighPriority)
+                        //this._changeValueForItem(item,false,isHighPriority)
+                        this._updateDataBase(item.value,item.date,false)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        this._changeValueForItem(item,true,isHighPriority)
+                       //this._changeValueForItem(item,true,isHighPriority)
+                        this._updateDataBase(item.value,item.date,true)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>
@@ -52,19 +51,24 @@ class Daily extends React.Component {
     };
 
     _renderListItem = (item,isHighPriority) => {
-        const index = isHighPriority?this.props.highPriority.findIndex(item2 => item2=== item):
-            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.highPriority.length
-        const bool = this.state.activated[index]
-        return (
-            <View style={[styles.cardContainer,{backgroundColor:bool===undefined?'white':bool?'green':'red'}]}>
+        // const index = isHighPriority?this.props.tasks.findIndex(item2 => item2=== item):
+        //     this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.tasks.length
+        // const bool = this.state.activated[index]
+        // return (
+        //     <View style={[styles.cardContainer,{backgroundColor:bool===undefined?'white':bool?'green':'red'}]}>
+        //         <Text>{item.value}</Text>
+        //     </View>
+        // )
+        return(
+            <View style={[styles.cardContainer,{backgroundColor:item.activated===undefined?'white':item.activated?'green':'red'}]}>
                 <Text>{item.value}</Text>
             </View>
         )
     };
 
     _changeValueForItem(item,newValue,isHighPriority){
-        const index = isHighPriority?this.props.highPriority.findIndex(item2 => item2=== item):
-            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.highPriority.length
+        const index = isHighPriority?this.props.tasks.findIndex(item2 => item2=== item):
+            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.tasks.length
         this.setState({activated: this.state.activated.map(((value, index2) => {
                 if(index2 === index){
                     return newValue
@@ -77,33 +81,20 @@ class Daily extends React.Component {
     }
 
     render() {
+        //console.log(this.props.dataBase)
         return (
             <Page>
                 <View style={styles.highPriority}>
                     <View style={styles.title_container}>
-                        <Text style={styles.title}>High Priority</Text>
+                        <Text style={styles.title}>Tasks of today</Text>
                     </View>
                     <View style={styles.content}>
                         <ScrollView>
-                            <SwipeableFlatList data={this.props.highPriority}
+                            <SwipeableFlatList data={this.props.dataBase}
                                                bounceFirstRowOnMount={true}
                                                maxSwipeDistance={110}
                                                renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
                                                renderItem={({index,item})=>this._renderListItem(item,true)}
-                                               keyExtractor={(item,index)=> index.toString()}/>
-                        </ScrollView>
-
-                    </View>
-                </View>
-                <View style={styles.lowPriority}>
-                    <Text style={styles.title}>Low Priority</Text>
-                    <View style={styles.content}>
-                        <ScrollView>
-                            <SwipeableFlatList data={this.props.lowPriority}
-                                               bounceFirstRowOnMount={true}
-                                               maxSwipeDistance={110}
-                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item,false)}
-                                               renderItem={({index,item})=>this._renderListItem(item,false)}
                                                keyExtractor={(item,index)=> index.toString()}/>
                         </ScrollView>
 
@@ -121,16 +112,13 @@ const styles = StyleSheet.create({
         flex:1,
 
     },
-    lowPriority: {
-        flex:1,
-    },
     title:{
         fontWeight: 'bold',
         textAlign:'center',
         fontSize: 26,
     },
     content:{
-        flex:5,
+        flex:9,
     },
     title_container:{
         flex:1,
@@ -175,8 +163,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        lowPriority: state.lowPriorityReducer.lowPriority,
-        highPriority: state.highPriorityReducer.highPriority
+        dataBase: state.dataBaseReducer.dataBase
     }
 }
 
