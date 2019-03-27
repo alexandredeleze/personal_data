@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
+import Utils from './src/Utils';
+
 class Daily extends React.Component {
 
     constructor(props){
@@ -12,9 +14,9 @@ class Daily extends React.Component {
             toggle:false,
         }
         if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date-1).forEach(value => this._addToDataBase(value.value,date))
+            this.props.dataBase.filter(item => item.date = date-1).forEach(value => Utils._addToDataBase(value.value,date))
         }
-    }
+}
 
 
 
@@ -35,14 +37,14 @@ class Daily extends React.Component {
                 <TouchableOpacity
                     onPress={() => {
                         //this._changeValueForItem(item,false,isHighPriority)
-                        this._updateDataBase(item.value,item.date,false)
+                        Utils._updateDataBase(item.value,item.date,false)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                        //this._changeValueForItem(item,true,isHighPriority)
-                        this._updateDataBase(item.value,item.date,true)
+                        Utils._updateDataBase(item.value,item.date,true)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>

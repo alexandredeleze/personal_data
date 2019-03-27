@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import {Text, View, TouchableHighlight, Button} from 'react-native';
+import {View, TouchableHighlight} from 'react-native';
 import TodoModel from './TodoModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
 import ListViewItem from './ListViewItem';
 import Utils from './Utils';
+import {connect} from "react-redux";
 
 let dataList = [
     new TodoModel('Hello Koding'),
-    new TodoModel('Make a Todo A'),//pp with React Native'),
+    new TodoModel('Make a Todo App with React Native'),
     new TodoModel('Check to complete a todo'),
-    new TodoModel('Long press, drag and drop a todo to sort'),
+    new TodoModel('Long press, drag and drop a todo to a lot of text to see how it looks so we could keep adding text until it is uselesssort'),
     new TodoModel('Save data with Realm'),
     new TodoModel('Sync data with Firebase')
 ];
@@ -28,7 +29,7 @@ function moveOrderItem(listView, fromIndex, toIndex) {
 }
 
 
-class ListView extends Component {
+class ListView_Plan extends Component {
     constructor(props) {
         super(props);
         this.updateDataList = this.updateDataList.bind(this);
@@ -67,7 +68,7 @@ class ListView extends Component {
         }
 
         return (
-            <View style={{flex: 1, marginLeft: 0, marginRight: 0}}>
+            <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
                 <OmniBox
                     data={dataList}
                     updateDataList={this.updateDataList}/>
@@ -77,4 +78,12 @@ class ListView extends Component {
     }
 };
 
-module.exports = ListView;
+module.exports = ListView_Plan;
+
+const mapStateToProps = state => {
+    return {
+        dataBase: state.dataBaseReducer.dataBase
+    }
+}
+
+export default connect(mapStateToProps)(ListView_Plan)

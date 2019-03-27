@@ -41,31 +41,6 @@ class OmniBox extends Component {
         }
     }
 
-    /*onKeyPress(event){
-        if (event.nativeEvent.key == 'intro'  && this.state.newValue) {
-            var newDataItem = new TodoModel(string(this.state.newValue));
-
-            var dataList = this.props.data;
-            var dataItem = Utils.findTodo(newDataItem, dataList);
-            if(dataItem) {
-                Utils.move(dataList, (dataList.indexOf(dataItem)), 0);
-
-                this.setState({
-                    newValue: ''
-                });
-                this.props.updateDataList(dataList);
-                return;
-            }
-
-            dataList.unshift(newDataItem);
-
-            this.setState({
-                newValue: ''
-            });
-            this.props.updateDataList(dataList);
-        }
-    }*/
-
     render() {
         return (
             <View style={{width: Dimensions.get('window').width-10, flexDirection: 'row', alignItems:'center', marginBottom: 5, marginTop: 5}}>
