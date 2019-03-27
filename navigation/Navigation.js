@@ -40,7 +40,7 @@ const TabNavigator = createBottomTabNavigator({
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
-                        source={require('../resources/plan.png')}
+                        source={require('../resources/ic_plan.png')}
                         style={styles.icon}/>
                 }
             }
@@ -50,7 +50,7 @@ const TabNavigator = createBottomTabNavigator({
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
-                        source={require('../resources/today.png')}
+                        source={require('../resources/ic_today.png')}
                         style={styles.icon}/>
                 }
             }
@@ -60,7 +60,7 @@ const TabNavigator = createBottomTabNavigator({
             navigationOptions: {
                 tabBarIcon: () => {
                     return <Image
-                        source={require('../resources/analysis.png')}
+                        source={require('../resources/ic_analysis.png')}
                         style={styles.icon}/>
                 }
             }
