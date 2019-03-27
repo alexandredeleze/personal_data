@@ -8,6 +8,10 @@ const UtilsRedux = {
     _updateDataBase:function (element, date_element, completed, priority) {
         const action = {type:"UPDATE_ELEMENT", title:element, date: date_element, completed:completed, priority: priority}
         Store.dispatch(action)
+    },
+    _removeDataBase:function (element, date_element) {
+        const action = {type:"REMOVE_ELEMENT", title:element, date: date_element}
+        Store.dispatch(action)
     }
 }
 export default UtilsRedux

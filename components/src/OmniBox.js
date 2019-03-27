@@ -36,7 +36,6 @@ class OmniBox extends Component {
         if(!dataItem) {
             UtilsRedux._addToDataBase(newDataItem.title, new Date().getDate(), newDataItem.priority)
             dataList.unshift(newDataItem);
-
             this.setState({
                 newValue: ''
             });

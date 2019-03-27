@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 94273,
+  "devToolsPort": 19002,
+  "expoServerNgrokUrl": "https://j7-e94.anonymous.personal-data.exp.direct",
+  "packagerNgrokUrl": "https://packager.j7-e94.anonymous.personal-data.exp.direct",
+  "ngrokPid": 94364
+}

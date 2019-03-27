@@ -14,11 +14,13 @@ class Daily extends React.Component {
             toggle:false,
         }
         if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date-1).forEach(value => Utils._addToDataBase(value.value,date))
+            this.props.dataBase.filter(item => item.date = date-1).forEach(value => Utils._addToDataBase(value.title,date))
         }
     }
 
-
+    _orderedElements(){
+        return this.props.dataBase.filter(item => item.priority === true).concat(this.props.dataBase.filter(item => item.priority === false))
+    }
 
     _renderQuickActionButton = (item) => {
         return (
@@ -26,7 +28,7 @@ class Daily extends React.Component {
                 <TouchableOpacity
                     onPress={() => {
                         //this._changeValueForItem(item,false,isHighPriority)
-                        UtilsRedux._updateDataBase(item.value,item.date,false)
+                        UtilsRedux._updateDataBase(item.title,item.date,false)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
@@ -34,7 +36,7 @@ class Daily extends React.Component {
                     onPress={() => {
                         //this._changeValueForItem(item,true,isHighPriority)
 
-                        UtilsRedux._updateDataBase(item.value,item.date,true)
+                        UtilsRedux._updateDataBase(item.title,item.date,true)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>
@@ -44,8 +46,8 @@ class Daily extends React.Component {
 
     _renderListItem = (item) => {
         return(
-            <View style={[styles.cardContainer,{backgroundColor:item.activated===undefined?'white':item.activated?'green':'red'}]}>
-                <Text>{item.value}</Text>
+            <View style={[styles.cardContainer,{backgroundColor:item.completed===undefined?'white':item.completed?'green':'red'}]}>
+                <Text>{item.title}</Text>
             </View>
         )
     };
@@ -59,7 +61,7 @@ class Daily extends React.Component {
                     </View>
                     <View style={styles.content}>
                         <ScrollView>
-                            <SwipeableFlatList data={this.props.dataBase}
+                            <SwipeableFlatList data={this._orderedElements()}
                                                bounceFirstRowOnMount={true}
                                                maxSwipeDistance={110}
                                                renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
