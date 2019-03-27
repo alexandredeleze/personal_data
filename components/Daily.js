@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
+import UtilsRedux from './UtilsRedux'
 class Daily extends React.Component {
 
     constructor(props){
@@ -18,31 +19,20 @@ class Daily extends React.Component {
 
 
 
-    _addToDataBase(element,date_element){
-        const action = {type:"ADD_ELEMENT", value:element, date:date_element}
-        this.props.dispatch(action)
-    }
-
-    _updateDataBase(element, date_element, activated_element){
-        const action = {type:"UPDATE_ELEMENT", value:element, date: date_element, activated:activated_element}
-        this.props.dispatch(action)
-    }
-
-
-    _renderQuickActionButton = (item,isHighPriority) => {
+    _renderQuickActionButton = (item) => {
         return (
             <View style={styles.quickActionContainer}>
                 <TouchableOpacity
                     onPress={() => {
                         //this._changeValueForItem(item,false,isHighPriority)
-                        this._updateDataBase(item.value,item.date,false)
+                        UtilsRedux._updateDataBase(item.value,item.date,false)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                        //this._changeValueForItem(item,true,isHighPriority)
-                        this._updateDataBase(item.value,item.date,true)
+                        UtilsRedux._updateDataBase(item.value,item.date,true)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>
@@ -50,15 +40,7 @@ class Daily extends React.Component {
         )
     };
 
-    _renderListItem = (item,isHighPriority) => {
-        // const index = isHighPriority?this.props.tasks.findIndex(item2 => item2=== item):
-        //     this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.tasks.length
-        // const bool = this.state.activated[index]
-        // return (
-        //     <View style={[styles.cardContainer,{backgroundColor:bool===undefined?'white':bool?'green':'red'}]}>
-        //         <Text>{item.value}</Text>
-        //     </View>
-        // )
+    _renderListItem = (item) => {
         return(
             <View style={[styles.cardContainer,{backgroundColor:item.activated===undefined?'white':item.activated?'green':'red'}]}>
                 <Text>{item.value}</Text>
@@ -66,22 +48,7 @@ class Daily extends React.Component {
         )
     };
 
-    _changeValueForItem(item,newValue,isHighPriority){
-        const index = isHighPriority?this.props.tasks.findIndex(item2 => item2=== item):
-            this.props.lowPriority.findIndex(item2 => item2=== item) + this.props.tasks.length
-        this.setState({activated: this.state.activated.map(((value, index2) => {
-                if(index2 === index){
-                    return newValue
-                }
-                else{
-                    return value
-                }
-            })) })
-
-    }
-
     render() {
-        //console.log(this.props.dataBase)
         return (
             <Page>
                 <View style={styles.highPriority}>
@@ -93,8 +60,8 @@ class Daily extends React.Component {
                             <SwipeableFlatList data={this.props.dataBase}
                                                bounceFirstRowOnMount={true}
                                                maxSwipeDistance={110}
-                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item,true)}
-                                               renderItem={({index,item})=>this._renderListItem(item,true)}
+                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
+                                               renderItem={({index,item})=>this._renderListItem(item)}
                                                keyExtractor={(item,index)=> index.toString()}/>
                         </ScrollView>
 
