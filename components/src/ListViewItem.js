@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {TouchableHighlight, View, Text, Dimensions} from 'react-native';
 import CheckBox from './CheckBox';
 import UtilsRedux from "../UtilsRedux";
+import {connect} from "react-redux";
 
 class ListViewItem extends Component {
     constructor(props) {
@@ -20,12 +21,13 @@ class ListViewItem extends Component {
     //TODO I think that hier the hearth doesn't work with the redux (I have had the UtilsRedux just to test the order of the elements in Daily)
     _onCheckBoxPressed() {
         var data = this.state.data;
+        UtilsRedux._updateDataBase(data.title,new Date().getDate(),data.completed,!data.priority)
         //data.completed = !data.completed;
         data.priority = !data.priority;
         this.setState({
             data: data
         });
-        UtilsRedux._updateDataBase(data.title,new Date().getDate(),undefined,data.priority)
+
         this.props.onCompletedChange(data, this.props.dataIndex);
     }
 
@@ -45,5 +47,11 @@ class ListViewItem extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+        dataBase: state.dataBaseReducer.dataBase
+    }
+}
 
-module.exports = ListViewItem;
+export default connect(mapStateToProps)(ListViewItem)
+//module.exports = ListViewItem;

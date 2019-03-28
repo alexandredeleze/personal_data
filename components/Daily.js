@@ -28,7 +28,7 @@ class Daily extends React.Component {
                 <TouchableOpacity
                     onPress={() => {
                         //this._changeValueForItem(item,false,isHighPriority)
-                        UtilsRedux._updateDataBase(item.title,item.date,false)
+                        UtilsRedux._updateDataBase(item.title,item.date,false,item.priority)
                     }} style={styles.quickActionButtonStyleRed}>
                     <Image source={require('../resources/ic_not_done.png')}/>
                 </TouchableOpacity>
@@ -36,7 +36,7 @@ class Daily extends React.Component {
                     onPress={() => {
                         //this._changeValueForItem(item,true,isHighPriority)
 
-                        UtilsRedux._updateDataBase(item.title,item.date,true)
+                        UtilsRedux._updateDataBase(item.title,item.date,true, item.priority)
                     }} style={styles.quickActionButtonStyleGreen}>
                     <Image source={require('../resources/ic_done.png')}/>
                 </TouchableOpacity>
