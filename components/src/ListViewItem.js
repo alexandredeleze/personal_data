@@ -1,42 +1,26 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, View, Text, Dimensions} from 'react-native';
+import {View, Text, Dimensions} from 'react-native';
 import CheckBox from './CheckBox';
-import UtilsRedux from "../UtilsRedux";
-import {connect} from "react-redux";
+import UtilsRedux from "./UtilsRedux";
 
 class ListViewItem extends Component {
     constructor(props) {
         super(props);
         this._onCheckBoxPressed = this._onCheckBoxPressed.bind(this);
-        this.state = {
-            data: this.props.data
-        }
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            data: props.data
-        })
-    }
-    //TODO I think that hier the hearth doesn't work with the redux (I have had the UtilsRedux just to test the order of the elements in Daily)
+
     _onCheckBoxPressed() {
-        var data = this.state.data;
-        UtilsRedux._updateDataBase(data.title,new Date().getDate(),data.completed,!data.priority)
-        //data.completed = !data.completed;
-        data.priority = !data.priority;
-        this.setState({
-            data: data
-        });
-
-        this.props.onCompletedChange(data, this.props.dataIndex);
+        let data = this.props.data;
+        UtilsRedux._updateDataBase(data.title,data.date,data.completed,!data.priority)
     }
 
     render() {
-        let data = this.state.data;
+        let data = this.props.data;
         let color = '#000';//data.completed ? '#C5C8C9' : '#000';
         let textDecorationLine = 'none'; //data.completed ? 'line-through' : 'none';
         return (
-           //<TouchableHighlight underlayColor={'#eee'}
+            //<TouchableHighlight underlayColor={'#eee'}
             // style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#F8F8F8", borderBottomWidth:1, borderColor: '#eee'}} {...this.props.sortHandlers}>
             <View style={{width: Dimensions.get('window').width-10, paddingRight: 10, paddingLeft: 10, paddingTop: 10, paddingBottom: 10, backgroundColor: 'rgba(999, 999, 999, 0.4)',//"#F8F8F8",
                 borderBottomWidth:1, borderColor: '#eee', flexDirection: 'row', alignItems: 'center'}}>
@@ -47,11 +31,5 @@ class ListViewItem extends Component {
         )
     }
 }
-const mapStateToProps = state => {
-    return {
-        dataBase: state.dataBaseReducer.dataBase
-    }
-}
 
-export default connect(mapStateToProps)(ListViewItem)
-//module.exports = ListViewItem;
+export default ListViewItem

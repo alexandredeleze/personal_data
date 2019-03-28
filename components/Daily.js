@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
-import UtilsRedux from './UtilsRedux'
+import UtilsRedux from './src/UtilsRedux'
 
 class Daily extends React.Component {
 

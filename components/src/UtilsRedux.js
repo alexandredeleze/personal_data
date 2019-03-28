@@ -1,5 +1,5 @@
 import React from 'react';
-import Store from '../store/configureStore';
+import Store from '../../store/configureStore';
 const UtilsRedux = {
     _addToDataBase:function (element,date_element, priority) {
         const action = {type:"ADD_ELEMENT", title:element, date:date_element, priority: priority}

@@ -1,45 +1,31 @@
 import React, { Component } from 'react';
 import {View, Button, Dimensions, TextInput} from 'react-native';
-import TodoModel from './TodoModel';
-import Utils from './Utils';
-import UtilsRedux from '../UtilsRedux';
-import {connect} from "react-redux";
+import UtilsRedux from './UtilsRedux';
 
 class OmniBox extends Component {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
-        //this.onKeyPress = this.onKeyPress.bind(this);
-    }
-
-    componentWillMount() {
-        this.setState({
-            newValue: ''
-        });
+        this.state = {newValue:''}
     }
 
     onChange(event){
-        var title = String(event.nativeEvent.text);
-        var dataList = this.props.data.filter((item) => item.title.match(new RegExp('.*' + title +'.*', 'gi')));
-
+        let title = String(event.nativeEvent.text);
         this.setState({
             newValue: title
         });
-        this.props.updateDataList(dataList);
+
     }
 
     joinData = () => {
-        var newDataItem = new TodoModel(this.state.newValue);
-        var dataList = this.props.data;
-        //console.log("Datalist", dataList);
-        var dataItem = Utils.findTodo(newDataItem, dataList);
-        if(!dataItem) {
-            UtilsRedux._addToDataBase(newDataItem.title, new Date().getDate(), newDataItem.priority)
-            dataList.unshift(newDataItem);
+        let newDataItem = this.state.newValue.trim()
+        let dataList = this.props.data;
+        let check = dataList.filter(item => item.title === newDataItem).length === 0
+        if(check) {
+            UtilsRedux._addToDataBase(newDataItem, new Date().getDate(), false)
             this.setState({
                 newValue: ''
             });
-            this.props.updateDataList(dataList);
         }
     }
 
@@ -50,7 +36,6 @@ class OmniBox extends Component {
                            placeholder='Add a todo or Search'
                            blurOnSubmit={false}
                            value={this.state.newValue}
-                           //onKeyPress={this.onKeyPress}
                            onChange={this.onChange}
                            onSubmitEditing={this.onKeyPress}>
 
@@ -63,17 +48,10 @@ class OmniBox extends Component {
                     color="#841584"
                 />
             </View>
-
-
         );
     }
 }
-const mapStateToProps = state => {
-    return {
-        dataBase: state.dataBaseReducer.dataBase
-    }
-}
 
-export default connect(mapStateToProps)(OmniBox)
-//module.exports = OmniBox;
+export default OmniBox
+
 
