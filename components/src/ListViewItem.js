@@ -25,7 +25,7 @@ class ListViewItem extends Component {
         this.setState({
             data: data
         });
-        UtilsRedux._updateDataBase(data.title,new Date().getDate(),undefined,data.priority)
+        UtilsRedux._updateDataBase(data.title,new Date().getDate(),undefined, data.priority)
         this.props.onCompletedChange(data, this.props.dataIndex);
     }
 
