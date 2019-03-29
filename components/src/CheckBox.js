@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import Icon from  'react-native-vector-icons/MaterialIcons';
 
 class CheckBox extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: this.props.data
-        };
-    }
     render() {
-        let iconName = this.state.data.priority ? 'favorite' : 'favorite-border';//'check-box' : 'check-box-outline-blank';
+        let data = this.props.data;
+        let iconName = data.priority ? 'favorite' : 'favorite-border';//'check-box' : 'check-box-outline-blank';
         let color = this.props.color || '#000';
 
         return (
             <Icon.Button
-                data={this.state.data}
+                data={data}
                 name={iconName}
                 backgroundColor='rgba(0,0,0,0)'
                 color={color}
@@ -29,5 +24,4 @@ class CheckBox extends Component {
         );
     }
 }
-
-module.exports = CheckBox;
+export default CheckBox
