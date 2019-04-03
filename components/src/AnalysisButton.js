@@ -19,7 +19,7 @@ class AnalysisButton extends React.Component {
 
 const styles = StyleSheet.create({
     buttons_container: {
-        height: 30,
+        height: 40,
         flexDirection: 'row',
 
     },

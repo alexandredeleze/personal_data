@@ -17,13 +17,12 @@ class Analysis extends React.Component {
         this._isWeekly = this._isWeekly.bind(this);
     }
     componentDidMount() {
-        UtilsRedux._addToDataBase("Breakfast", moment().format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
+        UtilsRedux._addToDataBase("Clean teeth", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(30, 'days').format("DD-MM-YYYY"), false);
 
-        UtilsRedux._updateDataBase("Breakfast", moment().format("DD-MM-YYYY"), false, true);
         UtilsRedux._updateDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true, true);
         UtilsRedux._updateDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true, true);
         UtilsRedux._updateDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), false, true);
