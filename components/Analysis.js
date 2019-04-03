@@ -3,27 +3,29 @@ import {Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import Utils from "./src/Utils";
+import UtilsRedux from "./src/UtilsRedux";
+import moment from "moment";
 
 class Analysis extends React.Component {
-    // componentDidMount() {
+    componentDidMount() {
     //     let today = new Date().getDate();
-    //     UtilsRedux._addToDataBase("Breakfast", today, true);
-    //     UtilsRedux._addToDataBase("Breakfast", today - 1, true);
-    //     UtilsRedux._addToDataBase("Breakfast", today - 2, true);
-    //     UtilsRedux._addToDataBase("Breakfast", today - 3, true);
-    //     UtilsRedux._updateDataBase("Breakfast", today, false, true);
-    //     UtilsRedux._updateDataBase("Breakfast", today - 1, true, true);
-    //     UtilsRedux._updateDataBase("Breakfast", today - 2, true, true);
-    //     UtilsRedux._updateDataBase("Breakfast", today - 3, false, true);
-    // }
+        UtilsRedux._addToDataBase("Breakfast", moment().format("DD-MM-YYYY"), true);
+        UtilsRedux._addToDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
+        UtilsRedux._addToDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true);
+        UtilsRedux._addToDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), true);
+        UtilsRedux._updateDataBase("Breakfast", moment().format("DD-MM-YYYY"), false, true);
+        UtilsRedux._updateDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true, true);
+        UtilsRedux._updateDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true, true);
+        UtilsRedux._updateDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), false, true);
+    }
 
-    _weekTask() {
-        let today = new Date().getDate();
-        return this.props.dataBase.filter(item => item.date <= today && item.date >= today - 6)
+    _taskInRangeOfDate(nbreDays) {
+        return this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, nbreDays))
     }
 
     _priorityTask() {
-        return this._weekTask().filter(item => item.priority)
+        return this._taskInRangeOfDate(7).filter(item => item.priority)
     }
 
     _percentagePriority() {

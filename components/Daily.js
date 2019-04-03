@@ -4,6 +4,7 @@ import Page from "./Page";
 import {connect} from "react-redux";
 import Swipeable from 'react-native-swipeable';
 import UtilsRedux from './src/UtilsRedux'
+import Utils from "./src/Utils";
 
 class Daily extends React.Component {
 
@@ -17,8 +18,8 @@ class Daily extends React.Component {
     }
 
     _orderedElements(){
-        let today = new Date().getDate();
-        return this.props.dataBase.filter(item => item.priority === true && item.date === today).concat(this.props.dataBase.filter(item => item.priority === false && item.date === today))
+        let firstOrder = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
+        return firstOrder.filter(item => item.priority === true).concat(firstOrder.filter(item => item.priority === false))
     }
 
     _renderItem = (item) => {

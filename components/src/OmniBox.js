@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import {View, Button, Dimensions, TextInput} from 'react-native';
+import React, {Component} from 'react';
+import {Button, Dimensions, TextInput, View} from 'react-native';
 import UtilsRedux from './UtilsRedux';
+import moment from "moment";
 
 class OmniBox extends Component {
     constructor(props) {
@@ -18,16 +19,16 @@ class OmniBox extends Component {
     }
 
     joinData = () => {
-        let newDataItem = this.state.newValue.trim()
+        let newDataItem = this.state.newValue.trim();
         let dataList = this.props.data;
-        let check = dataList.filter(item => item.title === newDataItem).length === 0
+        let check = dataList.filter(item => item.title === newDataItem).length === 0;
         if(check) {
-            UtilsRedux._addToDataBase(newDataItem, new Date().getDate(), false)
+            UtilsRedux._addToDataBase(newDataItem, moment().format('DD-MM-YYYY'), false);
             this.setState({
                 newValue: ''
             });
         }
-    }
+    };
 
     render() {
         return (

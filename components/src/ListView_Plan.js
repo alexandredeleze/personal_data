@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import {View, FlatList} from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, View} from 'react-native';
 import OmniBox from './OmniBox';
 import ListViewItem from './ListViewItem';
 import {connect} from "react-redux";
+import Utils from "./Utils";
 
 class ListView_Plan extends Component {
     render() {
-        let listView = (<View></View>);
-        let todayList = this.props.dataBase.filter(item => item.date === new Date().getDate())
-        let orderedList = todayList.filter(item => item.priority).concat(this.props.dataBase.filter(item => !item.priority))
+        let listView = null;
+        let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
+        let orderedList = todayList.filter(item => item.priority).concat(this.props.dataBase.filter(item => !item.priority));
         if (orderedList.length) {
             listView = (
                 <FlatList
@@ -29,12 +30,12 @@ class ListView_Plan extends Component {
             </View>
         )
     }
-};
+}
 
 const mapStateToProps = state => {
     return {
         dataBase: state.dataBaseReducer.dataBase
     }
-}
+};
 
 export default connect(mapStateToProps)(ListView_Plan)
