@@ -9,14 +9,14 @@ class ListView_Plan extends Component {
     render() {
         let listView = null;
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
-        let orderedList = todayList.filter(item => item.priority).concat(this.props.dataBase.filter(item => !item.priority));
+        let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
         if (orderedList.length) {
             listView = (
                 <FlatList
                     ref='listView'
                     style={{flex: 1}}
                     data={orderedList}
-                    keyExtractor={item=> item.title}
+                    keyExtractor={item => item.title + item.date}
                     renderItem={dataItem => <ListViewItem data={dataItem.item}/>}
                 />
             );
