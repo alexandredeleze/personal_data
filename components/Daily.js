@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
+import {Image, ScrollView, StyleSheet, SwipeableFlatList, Text, TouchableOpacity, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import UtilsRedux from './src/UtilsRedux'
@@ -7,19 +7,20 @@ import UtilsRedux from './src/UtilsRedux'
 class Daily extends React.Component {
 
     constructor(props){
-        var date = new Date().getDate()
-        super(props)
+        super(props);
+        let date = new Date().getDate();
         this.state={
             leftActionActivated:false,
             toggle:false,
-        }
+        };
         if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date-1).forEach(value => Utils._addToDataBase(value.title,date))
+            this.props.dataBase.filter(item => item.date = date - 1).forEach(value => UtilsRedux._addToDataBase(value.title, date));
         }
     }
 
     _orderedElements(){
-        return this.props.dataBase.filter(item => item.priority === true).concat(this.props.dataBase.filter(item => item.priority === false))
+        let today = new Date().getDate();
+        return this.props.dataBase.filter(item => item.priority === true && item.date === today).concat(this.props.dataBase.filter(item => item.priority === false && item.date === today))
     }
 
     _renderQuickActionButton = (item) => {
@@ -45,9 +46,12 @@ class Daily extends React.Component {
     };
 
     _renderListItem = (item) => {
+        let icon = item.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
         return(
-            <View style={[styles.cardContainer,{backgroundColor:item.completed===undefined?'white':item.completed?'green':'red'}]}>
-                <Text>{item.title}</Text>
+            <View
+                style={[styles.cardContainer, {backgroundColor: item.completed === undefined ? 'white' : item.completed ? 'green' : 'red'}]}>
+                <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
+                <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{item.title}</Text>
             </View>
         )
     };
@@ -64,8 +68,8 @@ class Daily extends React.Component {
                             <SwipeableFlatList data={this._orderedElements()}
                                                bounceFirstRowOnMount={true}
                                                maxSwipeDistance={110}
-                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
-                                               renderItem={({index,item})=>this._renderListItem(item)}
+                                               renderQuickActions={(item) => this._renderQuickActionButton(item.item)}
+                                               renderItem={(item) => this._renderListItem(item.item)}
                                                keyExtractor={(item,index)=> index.toString()}/>
                         </ScrollView>
 
@@ -101,18 +105,19 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'center',
         elevation: 5,
-        margin: 10,
+        margin: 5,
         shadowRadius: 3,
         shadowOffset: {
             width: 3,
             height: 3
         },
-        padding: 20
+        padding: 10
     },
     quickActionContainer: {
         flex: 1,
-        margin:10,
+        margin: 5,
         justifyContent: 'flex-end',
         flexDirection: 'row'
     },
@@ -136,6 +141,6 @@ const mapStateToProps = state => {
     return {
         dataBase: state.dataBaseReducer.dataBase
     }
-}
+};
 
 export default connect(mapStateToProps)(Daily)
