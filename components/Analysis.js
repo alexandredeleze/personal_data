@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
@@ -9,7 +9,7 @@ import moment from "moment";
 
 class Analysis extends React.Component {
     componentDidMount() {
-    //     let today = new Date().getDate();
+        //     let today = new Date().getDate();
         UtilsRedux._addToDataBase("Breakfast", moment().format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
         UtilsRedux._addToDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true);
@@ -28,10 +28,14 @@ class Analysis extends React.Component {
         return this._taskInRangeOfDate(7).filter(item => item.priority)
     }
 
-    _percentagePriority() {
-        let priorityTask = this._priorityTask();
-        let doneTask = priorityTask.filter(item => item.completed).length;
-        let totalTask = priorityTask.length;
+    _notPriorityTask() {
+        return this._taskInRangeOfDate(7).filter(item => !item.priority)
+    }
+
+    _percentagePriority(priority) {
+        let listTask = priority ? this._priorityTask() : this._notPriorityTask();
+        let doneTask = listTask.filter(item => item.completed).length;
+        let totalTask = listTask.length;
         if (totalTask !== 0) {
             return parseInt(doneTask * 100 / totalTask);
         }
@@ -39,30 +43,63 @@ class Analysis extends React.Component {
 
     }
     render() {
+        let priorityPercentage = this._percentagePriority(true);
+        let notPriorityPercentage = this._percentagePriority(false);
         return (
             <Page>
-                <Text>Hello from Analysis!</Text>
-                <AnimatedCircularProgress
-                    size={120}
-                    width={15}
-                    fill={this._percentagePriority()}
-                    tintColor="#00e0ff"
-                    onAnimationComplete={() => console.log('onAnimationComplete')}
-                    backgroundColor="#3d5875">
-                    {
-                        () => <View>
-                            <Text>Priority</Text>
-                            <Text>{this._percentagePriority()}%</Text>
-                        </View>
+                <View style={styles.container_circle}>
+                    <View style={styles.container_circle_element}>
+                        <AnimatedCircularProgress
+                            size={120}
+                            width={15}
+                            fill={priorityPercentage}
+                            tintColor="#00e0ff"
+                            backgroundColor="#3d5875">
+                            {
+                                () => <View>
+                                    <Text>Priority</Text>
+                                    <Text>{priorityPercentage}%</Text>
+                                </View>
 
-                    }
+                            }
 
-                </AnimatedCircularProgress>
+                        </AnimatedCircularProgress>
+                    </View>
+                    <View style={styles.container_circle_element}>
+                        <AnimatedCircularProgress
+                            size={120}
+                            width={15}
+                            fill={notPriorityPercentage}
+                            tintColor="#00e0ff"
+                            backgroundColor="#3d5875">
+                            {
+                                () => <View>
+                                    <Text>Not priority</Text>
+                                    <Text>{notPriorityPercentage}%</Text>
+                                </View>
+
+                            }
+
+                        </AnimatedCircularProgress>
+                    </View>
+                </View>
             </Page>
 
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container_circle: {
+        flex: 2,
+        flexDirection: 'row',
+    },
+    container_circle_element: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
 
 const mapStateToProps = state => {
     return {
