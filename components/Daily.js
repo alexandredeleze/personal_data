@@ -1,21 +1,19 @@
 import React from 'react';
-import {Image, ScrollView, StyleSheet, SwipeableFlatList, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
+import Swipeable from 'react-native-swipeable';
 import UtilsRedux from './src/UtilsRedux'
 
 class Daily extends React.Component {
 
     constructor(props){
         super(props);
-        let date = new Date().getDate();
         this.state={
             leftActionActivated:false,
-            toggle:false,
+            rightActionActivated: false,
         };
-        if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date - 1).forEach(value => UtilsRedux._addToDataBase(value.title, date));
-        }
+
     }
 
     _orderedElements(){
@@ -23,54 +21,55 @@ class Daily extends React.Component {
         return this.props.dataBase.filter(item => item.priority === true && item.date === today).concat(this.props.dataBase.filter(item => item.priority === false && item.date === today))
     }
 
-    _renderQuickActionButton = (item) => {
-        return (
-            <View style={styles.quickActionContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        //this._changeValueForItem(item,false,isHighPriority)
-                        UtilsRedux._updateDataBase(item.title,item.date,false,item.priority)
-                    }} style={styles.quickActionButtonStyleRed}>
-                    <Image source={require('../resources/ic_not_done.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {
-                        //this._changeValueForItem(item,true,isHighPriority)
-
-                        UtilsRedux._updateDataBase(item.title,item.date,true, item.priority)
-                    }} style={styles.quickActionButtonStyleGreen}>
-                    <Image source={require('../resources/ic_done.png')}/>
-                </TouchableOpacity>
-            </View>
-        )
-    };
-
-    _renderListItem = (item) => {
-        let icon = item.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
+    _renderItem = (item) => {
+        let {leftActionActivated, rightActionActivated} = this.state;
+        let data = item.item;
+        let icon = data.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
         return(
-            <View
-                style={[styles.cardContainer, {backgroundColor: item.completed === undefined ? 'white' : item.completed ? 'green' : 'red'}]}>
-                <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
-                <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{item.title}</Text>
-            </View>
-        )
+            <Swipeable
+                leftActionActivationDistance={200}
+                leftContent={(
+                    <View style={[styles.leftSwipeItem, {backgroundColor: 'green'}]}>
+                        {leftActionActivated ?
+                            <Image source={require('../resources/ic_done.png')}/> :
+                            <Text>keep pulling!</Text>}
+                    </View>
+                )}
+                rightContent={(
+                    <View style={[styles.rightSwipeItem, {backgroundColor: 'red'}]}>
+                        {rightActionActivated ?
+                            <Image source={require('../resources/ic_not_done.png')}/> :
+                            <Text>keep pulling!</Text>}
+                    </View>
+                )}
+                onLeftActionActivate={() => this.setState({leftActionActivated: true})}
+                onLeftActionDeactivate={() => this.setState({leftActionActivated: false})}
+                onLeftActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, true, data.priority)}
+                onRightActionActivate={() => this.setState({rightActionActivated: true})}
+                onRightActionDeactivate={() => this.setState({rightActionActivated: false})}
+                onRightActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, false, data.priority)}
+            >
+                <View
+                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'white' : data.completed ? 'green' : 'red'}]}>
+                    <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
+                    <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{data.title}</Text>
+                </View>
+            </Swipeable>);
     };
 
     render() {
         return (
             <Page>
+
                 <View style={styles.highPriority}>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>Tasks of today</Text>
                     </View>
                     <View style={styles.content}>
                         <ScrollView>
-                            <SwipeableFlatList data={this._orderedElements()}
-                                               bounceFirstRowOnMount={true}
-                                               maxSwipeDistance={110}
-                                               renderQuickActions={(item) => this._renderQuickActionButton(item.item)}
-                                               renderItem={(item) => this._renderListItem(item.item)}
-                                               keyExtractor={(item,index)=> index.toString()}/>
+                            <FlatList data={this._orderedElements()}
+                                      renderItem={this._renderItem}
+                                      keyExtractor={(item, index) => index.toString()}/>
                         </ScrollView>
 
                     </View>
@@ -134,6 +133,21 @@ const styles = StyleSheet.create({
         padding: 11,
     },
 
+    leftSwipeItem: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        margin: 5,
+        paddingRight: 20
+    },
+
+    rightSwipeItem: {
+        flex: 1,
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        margin: 5,
+        paddingLeft: 20
+    }
 
 });
 
