@@ -18,15 +18,15 @@ class ListView_Plan extends Component {
         return [];
     }
 
-    componentDidUpdate() {
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
         let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
-        if (orderedList.length === 0) {
+        if (orderedList.length === 0 && prevProps.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0)).length === 0) {
             this._findOldTask();
         }
         return true;
     }
+
 
     render() {
         let listView = null;
