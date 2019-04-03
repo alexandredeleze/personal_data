@@ -52,7 +52,11 @@ class Daily extends React.Component {
                 <View
                     style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'white' : data.completed ? 'green' : 'red'}]}>
                     <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
-                    <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{data.title}</Text>
+                    <Text style={{
+                        fontSize: 18,
+                        color: data.completed === undefined ? 'black' : 'white',
+                        textDecorationLine: 'none'
+                    }}>{data.title}</Text>
                 </View>
             </Swipeable>);
     };
