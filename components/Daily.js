@@ -14,16 +14,16 @@ class Daily extends React.Component {
             toggle:false,
         };
         if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date - 1).forEach(value => Utils._addToDataBase(value.title, date));
+            this.props.dataBase.filter(item => item.date = date - 1).forEach(value => UtilsRedux._addToDataBase(value.title, date));
         }
     }
 
     _orderedElements(){
-        return this.props.dataBase.filter(item => item.priority === true).concat(this.props.dataBase.filter(item => item.priority === false))
+        let today = new Date().getDate();
+        return this.props.dataBase.filter(item => item.priority === true && item.date === today).concat(this.props.dataBase.filter(item => item.priority === false && item.date === today))
     }
 
     _renderQuickActionButton = (item) => {
-        let data = item.item
         return (
             <View style={styles.quickActionContainer}>
                 <TouchableOpacity

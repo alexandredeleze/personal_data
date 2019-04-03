@@ -3,32 +3,28 @@ import {Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import UtilsRedux from "./src/UtilsRedux";
 
 class Analysis extends React.Component {
-    _addHighPriority() {
-        const action = {type: "ADD_HIGH", value: ""};
-        this.props.dispatch(action)
-    }
-    _addLowPriority() {
-        const action = {type: "ADD_LOW", value: ""};
-        this.props.dispatch(action)
-    }
-    _removeHighPriority() {
-        const action = {type: "REMOVE_HIGH", value: ""};
-        this.props.dispatch(action)
-    }
-    _removeLowPriority() {
-        const action = {type: "REMOVE_LOW", value: ""};
-        this.props.dispatch(action)
+    componentDidMount() {
+        let today = new Date().getDate();
+        UtilsRedux._addToDataBase("Breakfast", today, true);
+        UtilsRedux._addToDataBase("Breakfast", today - 1, true);
+        UtilsRedux._addToDataBase("Breakfast", today - 2, true);
+        UtilsRedux._addToDataBase("Breakfast", today - 3, true);
+        UtilsRedux._updateDataBase("Breakfast", today, false, true);
+        UtilsRedux._updateDataBase("Breakfast", today - 1, true, true);
+        UtilsRedux._updateDataBase("Breakfast", today - 2, true, true);
+        UtilsRedux._updateDataBase("Breakfast", today - 3, false, true);
     }
 
-    _dailyTask() {
+    _weekTask() {
         let today = new Date().getDate();
-        return this.props.dataBase.filter(item => item.date === today)
+        return this.props.dataBase.filter(item => item.date <= today && item.date >= today - 6)
     }
 
     _priorityTask() {
-        return this._dailyTask().filter(item => item.priority)
+        return this._weekTask().filter(item => item.priority)
     }
 
     _percentagePriority() {
@@ -36,7 +32,7 @@ class Analysis extends React.Component {
         let doneTask = priorityTask.filter(item => item.completed).length;
         let totalTask = priorityTask.length;
         if (totalTask !== 0) {
-            return doneTask / totalTask * 100;
+            return parseInt(doneTask * 100 / totalTask);
         }
         return 0;
 
@@ -54,7 +50,7 @@ class Analysis extends React.Component {
                     backgroundColor="#3d5875">
                     {
                         () => <View>
-                            <Text>Complete</Text>
+                            <Text>Priority</Text>
                             <Text>{this._percentagePriority()}%</Text>
                         </View>
 
