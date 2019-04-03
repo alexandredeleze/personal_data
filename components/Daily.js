@@ -33,14 +33,14 @@ class Daily extends React.Component {
                     <View style={[styles.leftSwipeItem, {backgroundColor: 'green'}]}>
                         {leftActionActivated ?
                             <Image source={require('../resources/ic_done.png')}/> :
-                            <Text>keep pulling!</Text>}
+                            <Text>done!</Text>}
                     </View>
                 )}
                 rightContent={(
                     <View style={[styles.rightSwipeItem, {backgroundColor: 'red'}]}>
                         {rightActionActivated ?
                             <Image source={require('../resources/ic_not_done.png')}/> :
-                            <Text>keep pulling!</Text>}
+                            <Text>undone!</Text>}
                     </View>
                 )}
                 onLeftActionActivate={() => this.setState({leftActionActivated: true})}
