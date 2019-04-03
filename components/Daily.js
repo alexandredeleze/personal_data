@@ -45,11 +45,13 @@ class Daily extends React.Component {
     };
 
     _renderListItem = (item) => {
-        let icon = item.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
+        let data = item.item;
+        let icon = data.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
         return(
-            <View style={[styles.cardContainer,{backgroundColor:item.completed===undefined?'white':item.completed?'green':'red'}]}>
+            <View
+                style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'white' : data.completed ? 'green' : 'red'}]}>
                 <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
-                <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{item.title}</Text>
+                <Text style={{fontSize: 18, color: 'black', textDecorationLine: 'none'}}>{data.title}</Text>
             </View>
         )
     };
