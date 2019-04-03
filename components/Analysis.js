@@ -3,20 +3,19 @@ import {Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import UtilsRedux from "./src/UtilsRedux";
 
 class Analysis extends React.Component {
-    componentDidMount() {
-        let today = new Date().getDate();
-        UtilsRedux._addToDataBase("Breakfast", today, true);
-        UtilsRedux._addToDataBase("Breakfast", today - 1, true);
-        UtilsRedux._addToDataBase("Breakfast", today - 2, true);
-        UtilsRedux._addToDataBase("Breakfast", today - 3, true);
-        UtilsRedux._updateDataBase("Breakfast", today, false, true);
-        UtilsRedux._updateDataBase("Breakfast", today - 1, true, true);
-        UtilsRedux._updateDataBase("Breakfast", today - 2, true, true);
-        UtilsRedux._updateDataBase("Breakfast", today - 3, false, true);
-    }
+    // componentDidMount() {
+    //     let today = new Date().getDate();
+    //     UtilsRedux._addToDataBase("Breakfast", today, true);
+    //     UtilsRedux._addToDataBase("Breakfast", today - 1, true);
+    //     UtilsRedux._addToDataBase("Breakfast", today - 2, true);
+    //     UtilsRedux._addToDataBase("Breakfast", today - 3, true);
+    //     UtilsRedux._updateDataBase("Breakfast", today, false, true);
+    //     UtilsRedux._updateDataBase("Breakfast", today - 1, true, true);
+    //     UtilsRedux._updateDataBase("Breakfast", today - 2, true, true);
+    //     UtilsRedux._updateDataBase("Breakfast", today - 3, false, true);
+    // }
 
     _weekTask() {
         let today = new Date().getDate();
