@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Dimensions, TextInput, View} from 'react-native';
 import UtilsRedux from './UtilsRedux';
-import moment from "moment";
+import Utils from "./Utils";
 
 class OmniBox extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class OmniBox extends Component {
         let dataList = this.props.data;
         let check = dataList.filter(item => item.title === newDataItem).length === 0;
         if(check) {
-            UtilsRedux._addToDataBase(newDataItem, moment().format('DD-MM-YYYY'), false);
+            UtilsRedux._addToDataBase(newDataItem, Utils._returnDateXDaysAgo(0), false);
             this.setState({
                 newValue: ''
             });
