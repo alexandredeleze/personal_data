@@ -6,6 +6,8 @@ import Utils from "./src/Utils";
 import UtilsRedux from "./src/UtilsRedux";
 import AnalysisButton from "./src/AnalysisButton";
 import Circle from "./src/Circle";
+import BarChart from "./src/BarChart";
+
 
 class Analysis extends React.Component {
     constructor(props) {
@@ -20,25 +22,26 @@ class Analysis extends React.Component {
         UtilsRedux._addToDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true);
         UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true);
         UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(3), true);
-        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(30), false);
+        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(27), false);
 
         UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true, true);
+        UtilsRedux._updateDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true, true);
         UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true, true);
         UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(3), false, true);
-        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(30), true, false);
+        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(27), true, false);
 
     }
 
-    _taskInRangeOfDate(nbreDays) {
-        return this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, nbreDays))
+    _taskInRangeOfDate(nbDays) {
+        return this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, nbDays))
     }
 
     _priorityTask(weekly) {
-        return weekly ? this._taskInRangeOfDate(7).filter(item => item.priority) : this._taskInRangeOfDate(31).filter(item => item.priority)
+        return weekly ? this._taskInRangeOfDate(6).filter(item => item.priority) : this._taskInRangeOfDate(27).filter(item => item.priority)
     }
 
     _notPriorityTask(weekly) {
-        return weekly ? this._taskInRangeOfDate(7).filter(item => !item.priority) : this._taskInRangeOfDate(31).filter(item => !item.priority)
+        return weekly ? this._taskInRangeOfDate(6).filter(item => !item.priority) : this._taskInRangeOfDate(27).filter(item => !item.priority)
     }
 
     _percentagePriority(priority, weekly) {
@@ -64,6 +67,10 @@ class Analysis extends React.Component {
                     <Circle text={'Priority'} percentage={priorityPercentage}/>
                     <Circle text={'Not priority'} percentage={notPriorityPercentage}/>
                 </View>
+                <View style={styles.bar_chart_container}>
+                    <BarChart data={this.props.dataBase} weekly={this.state.weekly}/>
+                </View>
+
                 <AnalysisButton function={this._isWeekly}/>
             </Page>
 
@@ -76,6 +83,10 @@ const styles = StyleSheet.create({
         flex: 5,
         flexDirection: 'row',
     },
+    bar_chart_container:{
+        flex:5,
+        padding:10,
+    }
 });
 
 const mapStateToProps = state => {
