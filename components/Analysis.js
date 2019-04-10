@@ -5,9 +5,9 @@ import {connect} from "react-redux";
 import Utils from "./src/Utils";
 import UtilsRedux from "./src/UtilsRedux";
 import AnalysisButton from "./src/AnalysisButton";
-import Circle from "./src/Circle";
 import BarChart from "./src/BarChart";
 import BarChart2 from "./src/BarChart2";
+import CircleChart from "./src/CircleChart";
 
 
 class Analysis extends React.Component {
@@ -34,44 +34,15 @@ class Analysis extends React.Component {
 
     }
 
-    _taskInRangeOfDate(nbDays) {
-        return this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, nbDays))
-    }
-
-    _priorityTask(weekly) {
-        return weekly ? this._taskInRangeOfDate(6).filter(item => item.priority) : this._taskInRangeOfDate(27).filter(item => item.priority)
-    }
-
-    _notPriorityTask(weekly) {
-        return weekly ? this._taskInRangeOfDate(6).filter(item => !item.priority) : this._taskInRangeOfDate(27).filter(item => !item.priority)
-    }
-
-    _percentagePriority(priority, weekly) {
-        let listTask = priority ? this._priorityTask(weekly) : this._notPriorityTask(weekly);
-        let doneTask = listTask.filter(item => item.completed).length;
-        let totalTask = listTask.length;
-        if (totalTask !== 0) {
-            return parseInt(doneTask * 100 / totalTask);
-        }
-        return 0;
-
-    }
-
     _isWeekly(arg) {
         this.setState({weekly: arg})
     }
 
     render() {
-        let priorityPercentage = this._percentagePriority(true, this.state.weekly);
-        let notPriorityPercentage = this._percentagePriority(false, this.state.weekly);
         return (
             <Page>
-                <View style={styles.container_circle}>
-                    <Circle text={'Priority'} percentage={priorityPercentage}/>
-                    <Circle text={'Not priority'} percentage={notPriorityPercentage}/>
-                </View>
+                <CircleChart data={this.props.dataBase} weekly={this.state.weekly}/>
                 <View style={styles.bar_chart_container}>
-
                     {/*<BarChart data={this.props.dataBase} weekly={this.state.weekly}/>*/}
                     <BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>
 
