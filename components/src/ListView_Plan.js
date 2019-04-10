@@ -12,7 +12,8 @@ class ListView_Plan extends Component {
         for (var i = 1; i <= 30; ++i) {
             let newList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, i));
             if (newList.length !== 0) {
-                newList.forEach(item => UtilsRedux._addToDataBase(item.title, moment().format("DD-MM-YYYY"), item.priority))
+                newList.forEach(item => UtilsRedux._addToDataBase(item.title, moment().format("DD-MM-YYYY"), item.priority));
+                break;
             }
         }
         return [];

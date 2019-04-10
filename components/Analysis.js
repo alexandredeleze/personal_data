@@ -4,7 +4,6 @@ import Page from "./Page";
 import {connect} from "react-redux";
 import Utils from "./src/Utils";
 import UtilsRedux from "./src/UtilsRedux";
-import moment from "moment";
 import AnalysisButton from "./src/AnalysisButton";
 import Circle from "./src/Circle";
 
@@ -17,16 +16,16 @@ class Analysis extends React.Component {
         this._isWeekly = this._isWeekly.bind(this);
     }
     componentDidMount() {
-        UtilsRedux._addToDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
-        UtilsRedux._addToDataBase("Clean teeth", moment().subtract(1, 'days').format("DD-MM-YYYY"), true);
-        UtilsRedux._addToDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true);
-        UtilsRedux._addToDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), true);
-        UtilsRedux._addToDataBase("Breakfast", moment().subtract(30, 'days').format("DD-MM-YYYY"), false);
+        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true);
+        UtilsRedux._addToDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true);
+        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true);
+        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(3), true);
+        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(30), false);
 
-        UtilsRedux._updateDataBase("Breakfast", moment().subtract(1, 'days').format("DD-MM-YYYY"), true, true);
-        UtilsRedux._updateDataBase("Breakfast", moment().subtract(2, 'days').format("DD-MM-YYYY"), true, true);
-        UtilsRedux._updateDataBase("Breakfast", moment().subtract(3, 'days').format("DD-MM-YYYY"), false, true);
-        UtilsRedux._updateDataBase("Breakfast", moment().subtract(30, 'days').format("DD-MM-YYYY"), true, false);
+        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true, true);
+        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true, true);
+        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(3), false, true);
+        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(30), true, false);
 
     }
 
