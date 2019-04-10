@@ -13,6 +13,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-circular-progress": "^1.1.0",
     "react-native-pure-chart": "0.0.24",
+    "react-native-svg-charts": "^5.2.0",
     "react-native-swipeable": "^0.6.0",
     "react-navigation": "^3.5.1",
     "react-redux": "^6.0.1",

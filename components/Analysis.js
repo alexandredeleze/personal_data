@@ -7,6 +7,7 @@ import UtilsRedux from "./src/UtilsRedux";
 import AnalysisButton from "./src/AnalysisButton";
 import Circle from "./src/Circle";
 import BarChart from "./src/BarChart";
+import BarChart2 from "./src/BarChart2";
 
 
 class Analysis extends React.Component {
@@ -17,6 +18,7 @@ class Analysis extends React.Component {
         };
         this._isWeekly = this._isWeekly.bind(this);
     }
+
     componentDidMount() {
         UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true);
         UtilsRedux._addToDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true);
@@ -58,6 +60,7 @@ class Analysis extends React.Component {
     _isWeekly(arg) {
         this.setState({weekly: arg})
     }
+
     render() {
         let priorityPercentage = this._percentagePriority(true, this.state.weekly);
         let notPriorityPercentage = this._percentagePriority(false, this.state.weekly);
@@ -68,7 +71,10 @@ class Analysis extends React.Component {
                     <Circle text={'Not priority'} percentage={notPriorityPercentage}/>
                 </View>
                 <View style={styles.bar_chart_container}>
-                    <BarChart data={this.props.dataBase} weekly={this.state.weekly}/>
+
+                    {/*<BarChart data={this.props.dataBase} weekly={this.state.weekly}/>*/}
+                    <BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>
+
                 </View>
 
                 <AnalysisButton function={this._isWeekly}/>
@@ -83,9 +89,9 @@ const styles = StyleSheet.create({
         flex: 5,
         flexDirection: 'row',
     },
-    bar_chart_container:{
-        flex:5,
-        padding:10,
+    bar_chart_container: {
+        flex: 5,
+        padding: 10,
     }
 });
 
