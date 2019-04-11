@@ -51,7 +51,7 @@ class Daily extends React.Component {
                 onRightActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, false, data.priority)}
             >
                 <View
-                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'white' : data.completed ? 'green' : 'red'}]}>
+                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'rgba(999, 999, 999, 0.4)' : data.completed ? 'rgba(13,162,65,0.8)' : 'rgba(238,15,8,0.8)'}]}>
                     <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
                     <Text style={{
                         fontSize: 18,
@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        elevation: 5,
-        margin: 5,
-        shadowRadius: 3,
-        shadowOffset: {
-            width: 3,
-            height: 3
-        },
-        padding: 10
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: '#eee',
+        marginLeft:10,
+        marginRight: 10,
+        marginTop:5,
+        marginBottom: 5,
+
     },
     quickActionContainer: {
         flex: 1,

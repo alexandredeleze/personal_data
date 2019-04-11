@@ -43,12 +43,12 @@ class Analysis extends React.Component {
             <Page>
                 <CircleChart data={this.props.dataBase} weekly={this.state.weekly}/>
                 <View style={styles.bar_chart_container}>
-                    {/*<BarChart data={this.props.dataBase} weekly={this.state.weekly}/>*/}
-                    <BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>
+                    <BarChart data={this.props.dataBase} weekly={this.state.weekly}/>
+                    {/*<BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>*/}
 
                 </View>
 
-                <AnalysisButton function={this._isWeekly}/>
+                <AnalysisButton function={this._isWeekly} weekly={this.state.weekly}/>
             </Page>
 
         );
