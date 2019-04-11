@@ -93,7 +93,7 @@ class BarChart2 extends React.PureComponent {
         const colors = [Colors.red, Colors.green, Colors.yellow];
         const keys = ['not_completed', 'priority', 'not_priority'];
         return (
-            <View style={{height: 300, padding: 20, flexDirection: 'row'}}>
+            <View style={{height: 250, padding: 20, flexDirection: 'row'}}>
                 <YAxis data={yData}
                        contentInset={{top: 10, bottom: 10}}
                        style={{marginBottom: 30}}
@@ -115,7 +115,7 @@ class BarChart2 extends React.PureComponent {
                         data={data}
                         scale={scale.scaleBand}
                         formatLabel={(value, index) => months[index]}
-                        labelStyle={{color: 'black',fontSize:'1em'}}
+                        labelStyle={{color: 'black',fontSize:'10'}}
                     />
                 </View>
             </View>
