@@ -43,8 +43,8 @@ class Analysis extends React.Component {
             <Page>
                 <CircleChart data={this.props.dataBase} weekly={this.state.weekly}/>
                 <View style={styles.bar_chart_container}>
-                    <BarChart data={this.props.dataBase} weekly={this.state.weekly}/>
-                    {/*<BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>*/}
+                    {/*<BarChart data={this.props.dataBase} weekly={this.state.weekly}/>*/}
+                    <BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>
 
                 </View>
 
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     bar_chart_container: {
-        flex: 5,
+        flex: 7,
         padding: 10,
     }
 });

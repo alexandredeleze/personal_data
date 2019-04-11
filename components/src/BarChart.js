@@ -6,7 +6,7 @@ import Utils from "./Utils";
 class BarChart extends Component {
     _groupBy(lists, element) {
         return lists.reduce(function (acc, obj) {
-            var key = obj[element];
+            let key = obj[element];
             if (!acc[key]) {
                 acc[key] = [];
             }
@@ -24,11 +24,11 @@ class BarChart extends Component {
         else{
            temp = this._groupBy(this.props.data.filter(item => item.priority === priority && item.completed),"date")
         }
-        Object.keys(temp).map((keys,index)=>temp[keys] = temp[keys].reduce((acc,elem)=>acc+=1,0))
+        Object.keys(temp).map(keys=>temp[keys] = temp[keys].reduce(acc=>acc+=1,0));
         if(this.props.weekly){
             for(let i=0;i<7;++i){
-                let date = Utils._returnDateXDaysAgo(i)
-                let value = temp[date]===undefined?0:temp[date]
+                let date = Utils._returnDateXDaysAgo(i);
+                let value = temp[date]===undefined?0:temp[date];
                 returnData=[
                     ...returnData,
                     {x:date,y:value}
@@ -39,7 +39,7 @@ class BarChart extends Component {
             for(let week=0;week<4;++week){
                 let value = 0;
                 for(let day=0;day<7;++day){
-                    let date = Utils._returnDateXDaysAgo(day+7*week)
+                    let date = Utils._returnDateXDaysAgo(day+7*week);
                     value += temp[date]===undefined?0:temp[date]
 
                 }
@@ -57,13 +57,12 @@ class BarChart extends Component {
 
 
     render() {
-        const Labels = () => <Text>Hello</Text>
         let sampleData = [
             {
                 seriesName: 'priority_completed',
                 label:'Priority done',
                 data: this._createDataForCharts(true,true),
-                color: '#297AB1'
+                color: 'rgba(13,162,65,0.8)'
             },
             {
                 seriesName: 'not_priority_completed',
@@ -75,10 +74,12 @@ class BarChart extends Component {
                 seriesName: 'not_completed',
                 label:'Not done',
                 data: this._createDataForCharts(undefined,false),
-                color: 'red'
+                color: 'rgba(238,15,8,1)'
             },
-        ]
-        return <PureChart data={sampleData} height={200} showEvenNumberXaxisLabel={false} type='bar' style={{backgroundColor: 'transparent'}}><Labels/></PureChart>
+        ];
+        return (
+                <PureChart data={sampleData} height={200} showEvenNumberXaxisLabel={false} type='bar' style={{backgroundColor: 'transparent'}}/>
+        );
     }
 }
 
