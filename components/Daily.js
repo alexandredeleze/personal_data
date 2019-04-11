@@ -1,72 +1,81 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,SwipeableFlatList, ScrollView,Image} from 'react-native';
+import {FlatList, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
+import Swipeable from 'react-native-swipeable';
 import UtilsRedux from './src/UtilsRedux'
+import Utils from "./src/Utils";
+import Colors from "./src/Colors";
 
 class Daily extends React.Component {
 
     constructor(props){
-        var date = new Date().getDate()
-        super(props)
+        super(props);
         this.state={
             leftActionActivated:false,
-            toggle:false,
-        }
-        if(this.props.dataBase.filter(item => item.date === date).length === 0){
-            this.props.dataBase.filter(item => item.date = date-1).forEach(value => Utils._addToDataBase(value.title,date))
-        }
+            rightActionActivated: false,
+        };
+
     }
 
     _orderedElements(){
-        return this.props.dataBase.filter(item => item.priority === true).concat(this.props.dataBase.filter(item => item.priority === false))
+        let firstOrder = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
+        return firstOrder.filter(item => item.priority === true).concat(firstOrder.filter(item => item.priority === false))
     }
 
-    _renderQuickActionButton = (item) => {
-        return (
-            <View style={styles.quickActionContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        //this._changeValueForItem(item,false,isHighPriority)
-                        UtilsRedux._updateDataBase(item.title,item.date,false,item.priority)
-                    }} style={styles.quickActionButtonStyleRed}>
-                    <Image source={require('../resources/ic_not_done.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {
-                        //this._changeValueForItem(item,true,isHighPriority)
-
-                        UtilsRedux._updateDataBase(item.title,item.date,true, item.priority)
-                    }} style={styles.quickActionButtonStyleGreen}>
-                    <Image source={require('../resources/ic_done.png')}/>
-                </TouchableOpacity>
-            </View>
-        )
-    };
-
-    _renderListItem = (item) => {
+    _renderItem = (item) => {
+        let {leftActionActivated, rightActionActivated} = this.state;
+        let data = item.item;
+        let icon = data.priority ? require('../resources/ic_priority.png') : require('../resources/ic_priority_not.png');
         return(
-            <View style={[styles.cardContainer,{backgroundColor:item.completed===undefined?'white':item.completed?'green':'red'}]}>
-                <Text>{item.title}</Text>
-            </View>
-        )
+            <Swipeable
+                leftActionActivationDistance={200}
+                leftContent={(
+                    <View style={[styles.leftSwipeItem, {backgroundColor: Colors.green}]}>
+                        {leftActionActivated ?
+                            <Image source={require('../resources/ic_done.png')}/> :
+                            <Text>done!</Text>}
+                    </View>
+                )}
+                rightContent={(
+                    <View style={[styles.rightSwipeItem, {backgroundColor: Colors.red}]}>
+                        {rightActionActivated ?
+                            <Image source={require('../resources/ic_not_done.png')}/> :
+                            <Text>undone!</Text>}
+                    </View>
+                )}
+                onLeftActionActivate={() => this.setState({leftActionActivated: true})}
+                onLeftActionDeactivate={() => this.setState({leftActionActivated: false})}
+                onLeftActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, true, data.priority)}
+                onRightActionActivate={() => this.setState({rightActionActivated: true})}
+                onRightActionDeactivate={() => this.setState({rightActionActivated: false})}
+                onRightActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, false, data.priority)}
+            >
+                <View
+                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? Colors.gray : data.completed ? Colors.green : Colors.red}]}>
+                    <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
+                    <Text style={{
+                        fontSize: 18,
+                        color: data.completed === undefined ? 'black' : 'white',
+                        textDecorationLine: 'none'
+                    }}>{data.title}</Text>
+                </View>
+            </Swipeable>);
     };
 
     render() {
         return (
             <Page>
+
                 <View style={styles.highPriority}>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>Tasks of today</Text>
                     </View>
                     <View style={styles.content}>
                         <ScrollView>
-                            <SwipeableFlatList data={this._orderedElements()}
-                                               bounceFirstRowOnMount={true}
-                                               maxSwipeDistance={110}
-                                               renderQuickActions={({index,item})=>this._renderQuickActionButton(item)}
-                                               renderItem={({index,item})=>this._renderListItem(item)}
-                                               keyExtractor={(item,index)=> index.toString()}/>
+                            <FlatList data={this._orderedElements()}
+                                      renderItem={this._renderItem}
+                                      keyExtractor={(item, index) => index.toString()}/>
                         </ScrollView>
 
                     </View>
@@ -101,18 +110,19 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1,
         flexDirection: 'row',
-        elevation: 5,
-        margin: 10,
-        shadowRadius: 3,
-        shadowOffset: {
-            width: 3,
-            height: 3
-        },
-        padding: 20
+        alignItems: 'center',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderColor: '#eee',
+        marginLeft:10,
+        marginRight: 10,
+        marginTop:5,
+        marginBottom: 5,
+
     },
     quickActionContainer: {
         flex: 1,
-        margin:10,
+        margin: 5,
         justifyContent: 'flex-end',
         flexDirection: 'row'
     },
@@ -129,6 +139,21 @@ const styles = StyleSheet.create({
         padding: 11,
     },
 
+    leftSwipeItem: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        margin: 5,
+        paddingRight: 20
+    },
+
+    rightSwipeItem: {
+        flex: 1,
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        margin: 5,
+        paddingLeft: 20
+    }
 
 });
 
@@ -136,6 +161,6 @@ const mapStateToProps = state => {
     return {
         dataBase: state.dataBaseReducer.dataBase
     }
-}
+};
 
 export default connect(mapStateToProps)(Daily)
