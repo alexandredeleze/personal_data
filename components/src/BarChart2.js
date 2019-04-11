@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, StackedBarChart, XAxis, YAxis} from 'react-native-svg-charts'
 import {View} from 'react-native'
-import * as scale from 'd3-scale'
+import * as scale from 'react-native-svg-charts/node_modules/d3-scale'
 import Utils from "./Utils";
 import Colors from "./Colors";
 
