@@ -10,7 +10,7 @@ class ListViewItem extends Component {
     }
 
 
-    _onCheckBoxPressed() {
+    _onCheckBoxPressed() {/*
 <<<<<<< HEAD
         var data = this.state.data;
         //data.completed = !data.completed;
@@ -20,10 +20,9 @@ class ListViewItem extends Component {
         });
         UtilsRedux._updateDataBase(data.title,new Date().getDate(),undefined, data.priority)
         this.props.onCompletedChange(data, this.props.dataIndex);
-=======
+=======*/
         let data = this.props.data;
         UtilsRedux._updateDataBase(data.title,data.date,data.completed,!data.priority)
->>>>>>> 32d0366c0efff20f7ea033d189a512780d4f4b47
     }
 
     render() {
