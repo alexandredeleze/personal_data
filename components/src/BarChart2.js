@@ -63,22 +63,21 @@ class BarChart2 extends React.PureComponent {
 
     }
 
-    _createListLastDays(){
+    _createListLastDays() {
         let returnValue = [];
         let i = 0;
-        if(this.props.weekly){
-            for(i=0;i<7;++i){
+        if (this.props.weekly) {
+            for (i = 0; i < 7; ++i) {
                 returnValue = [
                     ...returnValue,
-                    Utils._returnDateXDaysAgo(i).substr(0,5),
+                    Utils._returnDateXDaysAgo(i).substr(0, 5),
                 ]
             }
-        }
-        else{
-            for(i=0;i<4;++i){
+        } else {
+            for (i = 0; i < 4; ++i) {
                 returnValue = [
                     ...returnValue,
-                    'Week - '+i,
+                    'Week - ' + i,
                 ]
             }
         }
@@ -90,8 +89,8 @@ class BarChart2 extends React.PureComponent {
         const data = this._createDataForCharts();
         const months = this._createListLastDays();
         const yData = data.map(item => item.not_completed + item.priority + item.not_priority);
-        const colors = [Colors.red, Colors.green, Colors.yellow];
-        const keys = ['not_completed', 'priority', 'not_priority'];
+        const colors = [Colors.green, Colors.yellow, Colors.red];
+        const keys = ['priority', 'not_priority', 'not_completed'];
         return (
             <View style={{height: 250, padding: 20, flexDirection: 'row'}}>
                 <YAxis data={yData}
@@ -115,7 +114,7 @@ class BarChart2 extends React.PureComponent {
                         data={data}
                         scale={scale.scaleBand}
                         formatLabel={(value, index) => months[index]}
-                        labelStyle={{color: 'black',fontSize:'10'}}
+                        labelStyle={{color: 'black', fontSize: '10'}}
                     />
                 </View>
             </View>
