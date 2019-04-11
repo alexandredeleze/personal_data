@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import UtilsRedux from "./UtilsRedux";
 import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Swipeable from "react-native-swipeable";
+import Colors from "./Colors";
 
 class ListViewItem extends Component {
 
@@ -55,7 +56,7 @@ class ListViewItem extends Component {
                         paddingLeft: 10,
                         paddingTop: 10,
                         paddingBottom: 10,
-                        backgroundColor: 'rgba(999, 999, 999, 0.4)',//"#F8F8F8",
+                        backgroundColor: Colors.gray,//"#F8F8F8",
                         borderBottomWidth: 1,
                         borderColor: '#eee',
                         flexDirection: 'row',

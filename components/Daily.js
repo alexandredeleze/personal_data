@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import Swipeable from 'react-native-swipeable';
 import UtilsRedux from './src/UtilsRedux'
 import Utils from "./src/Utils";
+import Colors from "./src/Colors";
 
 class Daily extends React.Component {
 
@@ -30,14 +31,14 @@ class Daily extends React.Component {
             <Swipeable
                 leftActionActivationDistance={200}
                 leftContent={(
-                    <View style={[styles.leftSwipeItem, {backgroundColor: 'green'}]}>
+                    <View style={[styles.leftSwipeItem, {backgroundColor: Colors.green}]}>
                         {leftActionActivated ?
                             <Image source={require('../resources/ic_done.png')}/> :
                             <Text>done!</Text>}
                     </View>
                 )}
                 rightContent={(
-                    <View style={[styles.rightSwipeItem, {backgroundColor: 'red'}]}>
+                    <View style={[styles.rightSwipeItem, {backgroundColor: Colors.red}]}>
                         {rightActionActivated ?
                             <Image source={require('../resources/ic_not_done.png')}/> :
                             <Text>undone!</Text>}
@@ -51,7 +52,7 @@ class Daily extends React.Component {
                 onRightActionComplete={() => UtilsRedux._updateDataBase(data.title, data.date, false, data.priority)}
             >
                 <View
-                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? 'rgba(999, 999, 999, 0.4)' : data.completed ? 'rgba(13,162,65,0.8)' : 'rgba(238,15,8,0.8)'}]}>
+                    style={[styles.cardContainer, {backgroundColor: data.completed === undefined ? Colors.gray : data.completed ? Colors.green : Colors.red}]}>
                     <Image source={icon} style={{width: 40, height: 40, marginRight: 10}}/>
                     <Text style={{
                         fontSize: 18,

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import PureChart from "react-native-pure-chart";
 
 import Utils from "./Utils";
+import Colors from "./Colors";
 
 class BarChart extends Component {
     _groupBy(lists, element) {
@@ -31,7 +32,7 @@ class BarChart extends Component {
                 let value = temp[date]===undefined?0:temp[date];
                 returnData=[
                     ...returnData,
-                    {x:date,y:value}
+                    {x:date.substr(0,5),y:value}
                 ]
             }
         }
@@ -62,19 +63,19 @@ class BarChart extends Component {
                 seriesName: 'priority_completed',
                 label:'Priority done',
                 data: this._createDataForCharts(true,true),
-                color: 'rgba(13,162,65,0.8)'
+                color: Colors.green
             },
             {
                 seriesName: 'not_priority_completed',
                 label:'Not priority done',
                 data: this._createDataForCharts(false,true),
-                color: 'yellow'
+                color: Colors.yellow
             },
             {
                 seriesName: 'not_completed',
                 label:'Not done',
                 data: this._createDataForCharts(undefined,false),
-                color: 'rgba(238,15,8,1)'
+                color: Colors.red
             },
         ];
         return (

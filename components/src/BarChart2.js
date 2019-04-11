@@ -3,6 +3,7 @@ import {Grid, StackedBarChart, XAxis, YAxis} from 'react-native-svg-charts'
 import {View} from 'react-native'
 import * as scale from 'd3-scale'
 import Utils from "./Utils";
+import Colors from "./Colors";
 
 class BarChart2 extends React.PureComponent {
 
@@ -89,7 +90,7 @@ class BarChart2 extends React.PureComponent {
         const data = this._createDataForCharts();
         const months = this._createListLastDays();
         const yData = data.map(item => item.not_completed + item.priority + item.not_priority);
-        const colors = ['rgba(238,15,8,1)', 'rgba(13,162,65,0.8)', 'yellow'];
+        const colors = [Colors.red, Colors.green, Colors.yellow];
         const keys = ['not_completed', 'priority', 'not_priority'];
         return (
             <View style={{height: 300, padding: 20, flexDirection: 'row'}}>
