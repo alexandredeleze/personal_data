@@ -13,6 +13,7 @@ class ListViewItem extends Component {
         };
         this._mounted = false;
     }
+    /*
 <<<<<<< HEAD
 
 
@@ -27,9 +28,7 @@ class ListViewItem extends Component {
         UtilsRedux._updateDataBase(data.title,new Date().getDate(),undefined, data.priority)
         this.props.onCompletedChange(data, this.props.dataIndex);
 =======*/
-=======
     _onCheckBoxPressed() {
->>>>>>> e7611fec7180ca38d18dd98db632c17c5506895e
         let data = this.props.data;
         UtilsRedux._updateDataBase(data.title,data.date,data.completed,!data.priority)
     }
@@ -54,7 +53,7 @@ class ListViewItem extends Component {
                         {this.state.rightActionActivated ?
                             <Image source={require('../../resources/ic_trash.png')}
                                    style={{width: 20, height: 20, marginRight: 10}}/> :
-                            <Text>suppress!</Text>}
+                            <Text>Delete</Text>}
                     </View>
                 )}
                 onRightActionActivate={() => {

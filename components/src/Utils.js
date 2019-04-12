@@ -14,7 +14,7 @@ const Utils = {
     },
     _returnDateXDaysAgo: function(nbDays){
         return moment().subtract(nbDays, 'days').format("DD-MM-YYYY")
-    },
+    }
 };
 
 export default Utils;

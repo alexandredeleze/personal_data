@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, View, Text} from 'react-native';
 import OmniBox from './OmniBox';
 import ListViewItem from './ListViewItem';
 import {connect} from "react-redux";
@@ -28,8 +28,17 @@ class ListView_Plan extends Component {
         return true;
     }
 
-
     render() {
+        var example_tasks = ["Yoga", "Read the newspaper", "Walk the dog", "Morning Run", "Pick up laundry"];
+        var example_tasks_text = "";
+        var t;
+        for (t in example_tasks) {
+            if (t != example_tasks.length -1 ){
+                example_tasks_text += (example_tasks[t] + ', ')
+            } else {
+                example_tasks_text += ('or ' + example_tasks[t])
+            }
+        };
         let listView = null;
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
         let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
@@ -42,6 +51,7 @@ class ListView_Plan extends Component {
                     keyExtractor={item => item.title + item.date}
                     renderItem={dataItem => <ListViewItem data={dataItem.item}/>}
                 />
+
             );
         }
 
@@ -50,6 +60,9 @@ class ListView_Plan extends Component {
                 <OmniBox
                     data={orderedList}/>
                 {listView}
+                <Text>
+                    Other people included tasks such as {example_tasks_text}.
+                </Text>
             </View>
         )
     }
