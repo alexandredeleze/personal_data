@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Dimensions, TextInput, View} from 'react-native';
+import {Alert, Button, Dimensions, TextInput, View} from 'react-native';
 import UtilsRedux from './UtilsRedux';
 import Utils from "./Utils";
 
@@ -28,6 +28,8 @@ class OmniBox extends Component {
                 newValue: ''
             });
             this.props.endInput(newDataItem)
+        } else {
+            Alert.alert(newDataItem + ' is already in your morning routine')
         }
     };
 
