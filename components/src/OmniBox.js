@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Dimensions, TextInput, View} from 'react-native';
 import UtilsRedux from './UtilsRedux';
 import Utils from "./Utils";
-import  {SearchableDropdown} from 'react-native-searchable-dropdown';
 
 class OmniBox extends Component {
     constructor(props) {
@@ -28,57 +27,26 @@ class OmniBox extends Component {
             this.setState({
                 newValue: ''
             });
+            this.props.endInput()
         }
     };
 
+    _beginInput = () => {
+        this.props.beginInput()
+    };
+
+
 
     render() {
-        var  items  = [
-            {
-                id: 1,
-                name: 'Javascript'
-            },
-            {
-                id: 2,
-                name: 'Java'
-            },
-            {
-                id: 3,
-                name: 'Ruby'
-            },
-            {
-                id: 4,
-                name: 'React Native'
-            },
-            {
-                id: 5,
-                name: 'PHP'
-            },
-            {
-                id: 6,
-                name: 'Python'
-            },
-            {
-                id: 7,
-                name: 'Go'
-            },
-            {
-                id: 8,
-                name: 'Swift'
-            },
-        ];
-
         return (
             <View style={{width: Dimensions.get('window').width, flexDirection: 'row', alignItems:'center', marginBottom: 5, marginTop: 5}}>
-
                 <TextInput style={{width: Dimensions.get('window').width*.85, height: 60, padding: 14, fontSize: 16, borderWidth: 1, borderColor: '#eee', borderRadius: 0, backgroundColor: 'rgba(999, 999, 999, 0.8)'}}
                            placeholder='Add a todo or Search'
                            blurOnSubmit={false}
                            value={this.state.newValue}
                            onChange={this.onChange}
-                           onSubmitEditing={this.onKeyPress}>
-
-                </TextInput>
+                           onSubmitEditing={this.joinData}
+                           onTouchStart={this._beginInput}/>
 
                 <Button
                     style = {{width: Dimensions.get('window').width*.15, height: 60, padding: 14, marginBottom: 0}}
@@ -89,6 +57,7 @@ class OmniBox extends Component {
                 />
 
             </View>
+
         );
     }
 }

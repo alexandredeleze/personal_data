@@ -1,13 +1,26 @@
 import React, {Component} from 'react';
-import {FlatList, View, Text} from 'react-native';
+import {Button, Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import OmniBox from './OmniBox';
 import ListViewItem from './ListViewItem';
 import {connect} from "react-redux";
 import Utils from "./Utils";
 import moment from "moment";
 import UtilsRedux from "./UtilsRedux";
+import Colors from "./Colors";
+
 
 class ListView_Plan extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            inputText: false,
+        };
+        this._beginInput = this._beginInput.bind(this);
+        this._endInput = this._endInput.bind(this);
+
+        this.example_tasks = ["Yoga", "Read the newspaper", "Walk the dog", "Morning Run", "Pick up laundry"];
+    }
+
     _findOldTask() {
         for (var i = 1; i <= 30; ++i) {
             let newList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, i));
@@ -28,21 +41,51 @@ class ListView_Plan extends Component {
         return true;
     }
 
+    _beginInput() {
+        this.setState({inputText: true});
+    }
+
+    _endInput() {
+        this.setState({inputText: false})
+    }
+
+    _renderAdvice = ({item}) => (
+        <View style={{
+            width: Dimensions.get('window').width - 10,
+            paddingRight: 10,
+            paddingLeft: 10,
+            paddingTop: 10,
+            paddingBottom: 10,
+            backgroundColor: Colors.gray,//"#F8F8F8",
+            borderBottomWidth: 1,
+            borderColor: '#eee',
+            flexDirection: 'row',
+            alignItems: 'center'
+        }}>
+            <TouchableOpacity onPress={() => this._itemSelected(item)}>
+                <Text style={{
+                    fontSize: 18,
+                    textDecorationLine: 'none'
+                }}>{item}</Text>
+            </TouchableOpacity>
+
+        </View>
+    );
+
+
+    _itemSelected(item) {
+        this.example_tasks = this.example_tasks.filter(element => element !== item);
+        UtilsRedux._addToDataBase(item, Utils._returnDateXDaysAgo(0), false);
+        this._endInput();
+
+
+    }
+
     render() {
-        var example_tasks = ["Yoga", "Read the newspaper", "Walk the dog", "Morning Run", "Pick up laundry"];
-        var example_tasks_text = "";
-        var t;
-        for (t in example_tasks) {
-            if (t != example_tasks.length -1 ){
-                example_tasks_text += (example_tasks[t] + ', ')
-            } else {
-                example_tasks_text += ('or ' + example_tasks[t])
-            }
-        };
         let listView = null;
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
         let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
-        if (orderedList.length) {
+        if (orderedList.length && !this.state.inputText) {
             listView = (
                 <FlatList
                     ref='listView'
@@ -54,15 +97,38 @@ class ListView_Plan extends Component {
 
             );
         }
+        if (this.state.inputText) {
+            listView = (
+                <View style={{flex: 1, justifyContent: 'flex-start'}}>
+                    <View style={styles.title_container}>
+                        <Text style={styles.title}>Proposition</Text>
+                    </View>
+                    <View style={styles.content}>
+
+                        <FlatList
+                            ref='listView'
+                            style={{flex: 1}}
+                            data={this.example_tasks}
+                            keyExtractor={item => item}
+                            renderItem={this._renderAdvice}
+                        />
+                    </View>
+                    <View style={styles.button}>
+                        <Button onPress={() => this.setState({inputText: false})} title={'return'}/>
+                    </View>
+
+                </View>
+
+            );
+        }
 
         return (
             <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
                 <OmniBox
-                    data={orderedList}/>
+                    data={orderedList}
+                    beginInput={this._beginInput}
+                    endInput={this._endInput}/>
                 {listView}
-                <Text>
-                    Other people included tasks such as {example_tasks_text}.
-                </Text>
             </View>
         )
     }
@@ -75,5 +141,23 @@ const mapStateToProps = state => {
         dataBase: state.dataBaseReducer.dataBase
     }
 };
+
+const styles = StyleSheet.create({
+    title_container: {
+        flex: 1,
+        alignItems: 'stretch',
+    },
+    title: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize: 26,
+    },
+    content: {
+        flex: 3,
+    },
+    button: {
+        flex: 3,
+    }
+});
 
 export default connect(mapStateToProps)(ListView_Plan)
