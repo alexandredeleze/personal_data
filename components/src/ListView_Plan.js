@@ -14,11 +14,12 @@ class ListView_Plan extends Component {
         super(props);
         this.state = {
             inputText: false,
+            returnTransition: false,
         };
         this._beginInput = this._beginInput.bind(this);
         this._endInput = this._endInput.bind(this);
         this._addElement = this._addElement.bind(this);
-
+        this.returnTransition = false;
         this.example_tasks = ["Yoga", "Read the newspaper", "Walk the dog", "Morning Run", "Pick up laundry"];
     }
 
@@ -30,15 +31,19 @@ class ListView_Plan extends Component {
                 break;
             }
         }
+
         return [];
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
         let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
-        if (orderedList.length === 0 && prevProps.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0)).length === 0) {
+        if (orderedList.length === 0 && prevProps.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0)).length === 0
+            && !this.state.inputText && !this.returnTransition) {
             this._findOldTask();
+
         }
+        this.returnTransition = false;
         return true;
     }
 
@@ -91,6 +96,7 @@ class ListView_Plan extends Component {
     }
 
     render() {
+
         let listView = null;
         let todayList = this.props.dataBase.filter(item => Utils._checkIfDateInRange(item.date, 0));
         let orderedList = todayList.filter(item => item.priority).concat(todayList.filter(item => !item.priority));
@@ -110,7 +116,10 @@ class ListView_Plan extends Component {
             listView = (
                 <View style={styles.proposition}>
                     <View style={styles.button}>
-                        <Button onPress={() => this.setState({inputText: false})} title={'return'}/>
+                        <Button onPress={() => {
+                            this.returnTransition = true;
+                            this.setState({inputText: false})
+                        }} title={'return'}/>
                     </View>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>Propositions</Text>
