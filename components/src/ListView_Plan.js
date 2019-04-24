@@ -17,6 +17,7 @@ class ListView_Plan extends Component {
         };
         this._beginInput = this._beginInput.bind(this);
         this._endInput = this._endInput.bind(this);
+        this._addElement = this._addElement.bind(this);
 
         this.example_tasks = ["Yoga", "Read the newspaper", "Walk the dog", "Morning Run", "Pick up laundry"];
     }
@@ -48,6 +49,13 @@ class ListView_Plan extends Component {
     _endInput() {
         this.setState({inputText: false})
     }
+
+    _addElement = (element) => (
+        this.example_tasks = [
+            ...this.example_tasks,
+            element
+        ]
+    );
 
     _renderAdvice = ({item}) => (
         <View style={{
@@ -92,16 +100,19 @@ class ListView_Plan extends Component {
                     style={{flex: 1}}
                     data={orderedList}
                     keyExtractor={item => item.title + item.date}
-                    renderItem={dataItem => <ListViewItem data={dataItem.item}/>}
+                    renderItem={dataItem => <ListViewItem data={dataItem.item} onDelete={this._addElement}/>}
                 />
 
             );
         }
         if (this.state.inputText) {
             listView = (
-                <View style={{flex: 1, justifyContent: 'flex-start'}}>
+                <View style={styles.proposition}>
+                    <View style={styles.button}>
+                        <Button onPress={() => this.setState({inputText: false})} title={'return'}/>
+                    </View>
                     <View style={styles.title_container}>
-                        <Text style={styles.title}>Proposition</Text>
+                        <Text style={styles.title}>Propositions</Text>
                     </View>
                     <View style={styles.content}>
 
@@ -113,9 +124,7 @@ class ListView_Plan extends Component {
                             renderItem={this._renderAdvice}
                         />
                     </View>
-                    <View style={styles.button}>
-                        <Button onPress={() => this.setState({inputText: false})} title={'return'}/>
-                    </View>
+
 
                 </View>
 
@@ -143,9 +152,14 @@ const mapStateToProps = state => {
 };
 
 const styles = StyleSheet.create({
+    proposition: {
+        flex: 1,
+        justifyContent: 'flex-start'
+    },
     title_container: {
         flex: 1,
-        alignItems: 'stretch',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     title: {
         fontWeight: 'bold',
@@ -153,10 +167,10 @@ const styles = StyleSheet.create({
         fontSize: 26,
     },
     content: {
-        flex: 3,
+        flex: 10,
     },
     button: {
-        flex: 3,
+        flex: 1,
     }
 });
 

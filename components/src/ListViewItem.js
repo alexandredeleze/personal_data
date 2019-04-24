@@ -62,7 +62,10 @@ class ListViewItem extends Component {
                 onRightActionDeactivate={() => {
                     if (this._mounted) this.setState({rightActionActivated: false})
                 }}
-                onRightActionComplete={() => UtilsRedux._removeDataBase(data.title, data.date)}
+                onRightActionComplete={() => {
+                    this.props.onDelete(data.title);
+                    UtilsRedux._removeDataBase(data.title, data.date)
+                }}
             >
                 <TouchableOpacity onPress={() => this._onCheckBoxPressed()}>
                     <View style={{
