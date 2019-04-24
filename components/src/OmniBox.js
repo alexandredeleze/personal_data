@@ -27,7 +27,7 @@ class OmniBox extends Component {
             this.setState({
                 newValue: ''
             });
-            this.props.endInput()
+            this.props.endInput(newDataItem)
         }
     };
 

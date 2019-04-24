@@ -46,13 +46,14 @@ class ListView_Plan extends Component {
         this.setState({inputText: true});
     }
 
-    _endInput() {
+    _endInput(element) {
+        this.example_tasks = this.example_tasks.filter(item => item !== element);
         this.setState({inputText: false})
     }
 
     _addElement = (element) => (
         this.example_tasks = [
-            ...this.example_tasks,
+            ...this.example_tasks.filter(item => item !== element),
             element
         ]
     );
