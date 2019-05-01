@@ -20,7 +20,7 @@ class Analysis extends React.Component {
     }
 
     componentDidMount() {
-        dataSet._dataSetTest()
+        dataSet._exp4()
     }
 
     _isWeekly(arg) {

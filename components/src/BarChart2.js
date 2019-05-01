@@ -88,18 +88,20 @@ class BarChart2 extends React.PureComponent {
     render() {
         const data = this._createDataForCharts();
         const months = this._createListLastDays();
-        const yData = data.map(item => item.not_completed + item.priority + item.not_priority);
+        let yData = data.map(item => item.not_completed + item.priority + item.not_priority);
+        yData = [...yData, 0];
         const colors = [Colors.green, Colors.yellow, Colors.red];
         const keys = ['priority', 'not_priority', 'not_completed'];
         const numberTicks = yData.reduce((acc, item) => {
             if (acc < item) return item; else return acc;
-        }, 0);
+        }, 0) - 1;
+        const numberTicksWeekly = this.props.weekly ? numberTicks : 5;
         return (
             <View style={{height: 250, padding: 20, flexDirection: 'row'}}>
                 <YAxis data={yData}
                        contentInset={{top: 10, bottom: 10}}
                        style={{marginBottom: 30}}
-                       numberOfTicks={numberTicks}
+                       numberOfTicks={numberTicksWeekly}
                 />
                 <View style={{flex: 1, marginLeft: 10}}>
                     <StackedBarChart
