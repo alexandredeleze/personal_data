@@ -96,7 +96,7 @@ class BarChart2 extends React.PureComponent {
         }, 0);
         return (
             <View style={{height: 250, padding: 20, flexDirection: 'row'}}>
-                <YAxis data={yData}
+                <YAxis data={yData.reverse()}
                        contentInset={{top: 10, bottom: 10}}
                        style={{marginBottom: 30}}
                        numberOfTicks={numberTicks}

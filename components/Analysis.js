@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
 import Utils from "./src/Utils";
 import UtilsRedux from "./src/UtilsRedux";
 import AnalysisButton from "./src/AnalysisButton";
 import BarChart from "./src/BarChart";
-import BarChart2 from "./src/BarChart2";
 import CircleChart from "./src/CircleChart";
 import Square from "./src/Square";
 import Colors from "./src/Colors"
@@ -47,8 +46,8 @@ class Analysis extends React.Component {
                 <CircleChart data={this.props.dataBase} weekly={this.state.weekly}/>
                 <View style={styles.bar_chart_container}>
                     <Text style={styles.title}>{text}</Text>
-                    {/*<BarChart data={this.props.dataBase} weekly={this.state.weekly}/>*/}
-                    <BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>
+                    <BarChart data={this.props.dataBase} weekly={this.state.weekly}/>
+                    {/*<BarChart2 data={this.props.dataBase} weekly={this.state.weekly}/>*/}
                     <View style={styles.legend}>
                         <Square color={Colors.green}/>
                         <Text>Priority & Done</Text>

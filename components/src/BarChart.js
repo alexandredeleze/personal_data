@@ -79,7 +79,8 @@ class BarChart extends Component {
             },
         ];
         return (
-                <PureChart data={sampleData} height={200} showEvenNumberXaxisLabel={false} type='bar' style={{backgroundColor: 'transparent'}}/>
+            <PureChart data={sampleData.reverse()} height={200} showEvenNumberXaxisLabel={false} type='bar'
+                       style={{backgroundColor: 'transparent'}}/>
         );
     }
 }
