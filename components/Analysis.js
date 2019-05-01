@@ -2,13 +2,12 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Page from "./Page";
 import {connect} from "react-redux";
-import Utils from "./src/Utils";
-import UtilsRedux from "./src/UtilsRedux";
 import AnalysisButton from "./src/AnalysisButton";
 import BarChart from "./src/BarChart";
 import CircleChart from "./src/CircleChart";
 import Square from "./src/Square";
 import Colors from "./src/Colors"
+import dataSet from "../dataSet/dataSet"
 
 
 class Analysis extends React.Component {
@@ -21,18 +20,7 @@ class Analysis extends React.Component {
     }
 
     componentDidMount() {
-        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true);
-        UtilsRedux._addToDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true);
-        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true);
-        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(3), true);
-        UtilsRedux._addToDataBase("Breakfast", Utils._returnDateXDaysAgo(27), false);
-
-        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(1), true, true);
-        UtilsRedux._updateDataBase("Clean teeth", Utils._returnDateXDaysAgo(1), true, true);
-        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(2), true, true);
-        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(3), false, true);
-        UtilsRedux._updateDataBase("Breakfast", Utils._returnDateXDaysAgo(27), true, false);
-
+        dataSet._dataSetTest()
     }
 
     _isWeekly(arg) {

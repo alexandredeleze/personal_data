@@ -67,14 +67,14 @@ class BarChart2 extends React.PureComponent {
         let returnValue = [];
         let i = 0;
         if (this.props.weekly) {
-            for (i = 0; i < 7; ++i) {
+            for (i = 6; i >= 0; --i) {
                 returnValue = [
                     ...returnValue,
                     Utils._returnDateXDaysAgo(i).substr(0, 5),
                 ]
             }
         } else {
-            for (i = 0; i < 4; ++i) {
+            for (i = 3; i >= 0; --i) {
                 returnValue = [
                     ...returnValue,
                     'Week - ' + i,
@@ -96,7 +96,7 @@ class BarChart2 extends React.PureComponent {
         }, 0);
         return (
             <View style={{height: 250, padding: 20, flexDirection: 'row'}}>
-                <YAxis data={yData.reverse()}
+                <YAxis data={yData}
                        contentInset={{top: 10, bottom: 10}}
                        style={{marginBottom: 30}}
                        numberOfTicks={numberTicks}
@@ -107,7 +107,7 @@ class BarChart2 extends React.PureComponent {
                         gridMin={0}
                         keys={keys}
                         colors={colors}
-                        data={data}
+                        data={data.reverse()}
                         showGrid={false}
                         contentInset={{top: 10, bottom: 10}}
                     >

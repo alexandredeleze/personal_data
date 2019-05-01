@@ -27,7 +27,7 @@ class BarChart extends Component {
         }
         Object.keys(temp).map(keys=>temp[keys] = temp[keys].reduce(acc=>acc+=1,0));
         if(this.props.weekly){
-            for(let i=0;i<7;++i){
+            for (let i = 6; i >= 0; --i) {
                 let date = Utils._returnDateXDaysAgo(i);
                 let value = temp[date]===undefined?0:temp[date];
                 returnData=[
@@ -37,7 +37,7 @@ class BarChart extends Component {
             }
         }
         else{
-            for(let week=0;week<4;++week){
+            for (let week = 3; week >= 0; --week) {
                 let value = 0;
                 for(let day=0;day<7;++day){
                     let date = Utils._returnDateXDaysAgo(day+7*week);
@@ -79,7 +79,7 @@ class BarChart extends Component {
             },
         ];
         return (
-            <PureChart data={sampleData.reverse()} height={200} showEvenNumberXaxisLabel={false} type='bar'
+            <PureChart data={sampleData} height={200} showEvenNumberXaxisLabel={false} type='bar'
                        style={{backgroundColor: 'transparent'}}/>
         );
     }
