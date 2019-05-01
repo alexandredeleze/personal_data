@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 1749,
-  "expoServerNgrokUrl": "https://gf-x2c.adeleze.personal-data.exp.direct",
-  "packagerNgrokUrl": "https://packager.gf-x2c.adeleze.personal-data.exp.direct",
-  "ngrokPid": 1866
+  "packagerPid": 66481,
+  "expoServerNgrokUrl": "https://gf-x2c.escariche.personal-data.exp.direct",
+  "packagerNgrokUrl": "https://packager.gf-x2c.escariche.personal-data.exp.direct",
+  "ngrokPid": 66495
 }

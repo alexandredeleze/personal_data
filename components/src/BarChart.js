@@ -37,7 +37,8 @@ class BarChart extends Component {
             }
         }
         else{
-            for (let week = 3; week >= 0; --week) {
+            let week_tot = 3
+            for (let week = week_tot ; week >= 0; --week) {
                 let value = 0;
                 for(let day=0;day<7;++day){
                     let date = Utils._returnDateXDaysAgo(day+7*week);
@@ -46,13 +47,12 @@ class BarChart extends Component {
                 }
                 returnData=[
                     ...returnData,
-                    {x:'Week - '+week,y:value}
+                    {x:'Week - '+ (week_tot - week), y:value}
                 ]
             }
 
         }
         return returnData
-
     }
 
 
