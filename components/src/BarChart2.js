@@ -94,7 +94,7 @@ class BarChart2 extends React.PureComponent {
         const keys = ['priority', 'not_priority', 'not_completed'];
         const numberTicks = yData.reduce((acc, item) => {
             if (acc < item) return item; else return acc;
-        }, 0) - 1;
+        }, 0);
         const numberTicksWeekly = this.props.weekly ? numberTicks : 5;
         return (
             <View style={{height: 250, padding: 20, flexDirection: 'row'}}>

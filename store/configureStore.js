@@ -1,6 +1,7 @@
 import {combineReducers, createStore} from 'redux';
 import storage from 'redux-persist/lib/storage'
 import dataBaseReducer from "./dataBaseReducer";
+import {persistCombineReducers} from 'redux-persist'
 
 const rootPersistConfig = {
     key: 'root',
@@ -8,5 +9,5 @@ const rootPersistConfig = {
 }
 
 // Change if we want persistent data
-// export default createStore(persistCombineReducers(rootPersistConfig,{dataBaseReducer}))
-export default createStore(combineReducers({dataBaseReducer}))
+export default createStore(persistCombineReducers(rootPersistConfig, {dataBaseReducer}))
+// export default createStore(combineReducers({dataBaseReducer}))
