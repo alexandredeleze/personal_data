@@ -19,7 +19,7 @@
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "ws": ">=3.3.1",
+    "ws": ">=7.4.6",
     "js-yaml": ">=3.13.1"
   },
   "devDependencies": {
