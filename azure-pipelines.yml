@@ -14,3 +14,4 @@ steps:
 - task: trivy@1
   inputs:
     path: .
+    exitCode: 0
